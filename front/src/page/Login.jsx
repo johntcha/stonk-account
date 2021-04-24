@@ -7,7 +7,6 @@ const Login = () => {
     const [entry, setEntry] = useState()
     const [token, setToken] = useState()
     const [username, setUsername] = useState()
-    const [value, setValue] = useState();
     const [usernameTyped, setUsernameTyped] = useState()
     const [passwordTyped, setPasswordTyped] = useState()
     
@@ -20,7 +19,6 @@ const Login = () => {
     }
     
     
-
     const getUsername = (()=>{
          RequestService.displayUserLogged(config).then((result) => {
              setUsername(result.data.username)
@@ -28,15 +26,16 @@ const Login = () => {
             })
     })
 
-    const displayUsername = (() => {
-        if (username)
-        RequestService.getName(username).then((result) => setEntry(result.data)).catch((err)=>console.log(err))
-    })
+    // const displayUsername = (() => {
+    //     if (username)
+    //     RequestService.getName(username).then((result) => {setEntry(result.data)
+    //     console.log(result)}).catch((err)=>console.log(err))
+    // })
 
     useEffect(()=>{
         getUsername()
-        displayUsername()  
-    },[token, username])
+        localStorageHandler()
+    },[token])
 
 
     const handleChangeUsername = (event) => {
@@ -45,15 +44,31 @@ const Login = () => {
     const handleChangePassword = (event) => {
         setPasswordTyped(event.target.value)
     }
-      const handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         RequestService.login(user1).then((result) => setToken(result.data.access_token))
-      };
+    }
+
+    const localStorageHandler = () => {
+        if (token){
+            window.localStorage.setItem('token', token)
+        }
+    }
+    const LogOut = () => {
+        if (window.localStorage.getItem('token')){
+            window.localStorage.removeItem('token')
+        }
+    }
 
     return (
         <>
-            {username && (<Header entry={entry}/>)}
-            {!username && (
+            {window.localStorage.getItem('token') && (
+            <Header 
+            username={username}
+            LogOut={LogOut}
+            />
+            )}
+            {!window.localStorage.getItem('token') && (
             <div className="login-content">
             <form className="login-form" onSubmit={handleSubmit}>
                 <label>

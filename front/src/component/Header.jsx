@@ -6,7 +6,10 @@ const Header = (props) => {
     
     return (
         <div className="header">
-             {props.entry} 
+            Welcome home {props.username} !
+            <button onClick={props.LogOut}>
+                Log Out
+            </button>
         </div>
     )
 }
