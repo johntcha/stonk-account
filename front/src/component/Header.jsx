@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import RequestService from '../request/RequestService'
+import './header.css'
 
 const Header = () => {
     const [entry, setEntry] = useState()
 
-    new RequestService().getName('John').then((result) => setEntry(result.data))
+    RequestService.getName('John').then((result) => setEntry(result.data)).catch((err)=>console.log(err))
 
     return (
-        <div>
+        <div className="header">
              {entry} 
         </div>
     )
