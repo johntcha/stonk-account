@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import RequestService from '../request/RequestService'
-import Header from '../component/Header'
+import  { Redirect } from 'react-router-dom'
+
 import './login.css'
 
 const Login = () => {
-    const [entry, setEntry] = useState()
     const [token, setToken] = useState()
     const [username, setUsername] = useState()
     const [usernameTyped, setUsernameTyped] = useState()
@@ -20,22 +20,17 @@ const Login = () => {
     
     
     const getUsername = (()=>{
+        if (token)
          RequestService.displayUserLogged(config).then((result) => {
              setUsername(result.data.username)
             //  console.log(result)
             })
     })
 
-    // const displayUsername = (() => {
-    //     if (username)
-    //     RequestService.getName(username).then((result) => {setEntry(result.data)
-    //     console.log(result)}).catch((err)=>console.log(err))
-    // })
-
     useEffect(()=>{
         getUsername()
         localStorageHandler()
-    },[token])
+    },[token, username])
 
 
     const handleChangeUsername = (event) => {
@@ -52,22 +47,13 @@ const Login = () => {
     const localStorageHandler = () => {
         if (token){
             window.localStorage.setItem('token', token)
+            window.localStorage.setItem('username', username)
         }
     }
-    const LogOut = () => {
-        if (window.localStorage.getItem('token')){
-            window.localStorage.removeItem('token')
-        }
-    }
-
+    
+    if(window.localStorage.getItem('token')) return <Redirect to='/'  />
     return (
         <>
-            {window.localStorage.getItem('token') && (
-            <Header 
-            username={username}
-            LogOut={LogOut}
-            />
-            )}
             {!window.localStorage.getItem('token') && (
             <div className="login-content">
             <form className="login-form" onSubmit={handleSubmit}>
@@ -77,16 +63,14 @@ const Login = () => {
                 <input
                     type="text"
                     placeholder="Enter your username"
-                    // value={props.capitalize(value)}
                     onChange={handleChangeUsername}
                 />
                 <label>
                     Password:
                 </label>
                 <input
-                    type="text"
+                    type="password"
                     placeholder="Enter your password"
-                    // value={props.capitalize(value)}
                     onChange={handleChangePassword}
                 />
                 <input type="submit" value="Log in"/>
