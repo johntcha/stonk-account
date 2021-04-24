@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
 
 const RequestService = {
@@ -21,9 +21,9 @@ const RequestService = {
         }
     },
 
-    displayUserLogged: function(token){
+    displayUserLogged: async function(token){
         try {
-            const data = axios.get(`http://localhost:3002/profile`, token)
+            const data = await axios.get(`http://localhost:3002/profile`, token)
             return data
         } catch (error) {
             throw(error)
