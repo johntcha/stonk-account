@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import RequestService from '../request/RequestService'
 import  { Redirect } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
 import './login.css'
 
@@ -73,7 +74,10 @@ const Login = () => {
                     placeholder="Enter your password"
                     onChange={handleChangePassword}
                 />
-                <input type="submit" value="Log in"/>
+                {/* <input type="submit" value="Log in"/> */}
+                <Button variant="contained" color="primary" type="submit">
+                    Log in
+                </Button>
             </form>
             </div>
             )}

@@ -1,0 +1,21 @@
+.card-wrapper {
+    padding: 100px 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.card.piechart {
+    grid-column: 1 ;
+    grid-row: 1;
+    background-color: salmon;
+}
+.card.input-data {
+    grid-column: 2 / 3;
+    grid-row: 2;
+}
+.card.whatever {
+    grid-column: 3;
+    grid-row: 1;
+}

@@ -3,3 +3,9 @@
     font-size: 3rem;
     background-color: paleturquoise;
 }
+
+Button.logout-button {
+    float: right;
+    margin-top: 10px;
+    margin-right: 25px;
+}

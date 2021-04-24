@@ -1,5 +1,7 @@
 import React from 'react'
 import  { useHistory } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './header.css'
 
 const Header = (props) => {
@@ -12,13 +14,22 @@ const Header = (props) => {
             history.push(path);
         }
     }
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     return (
         <div className="header">
-            Welcome home {props.username} !
-            <button onClick={LogOut}>
+            Welcome home {capitalizeFirstLetter(props.username)}
+            <Button
+                variant="contained"
+                color="secondary"
+                className="logout-button"
+                startIcon={<ExitToAppIcon />}
+                onClick={LogOut}
+            >
                 Log Out
-            </button>
+            </Button>
         </div>
     )
 }
