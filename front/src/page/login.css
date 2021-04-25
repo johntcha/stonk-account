@@ -45,8 +45,15 @@
     border-radius: 10%;
     background: white;
     padding: 50px;
+    animation: popup .6s ease forwards;
+    transform: scale(0);
+    transform-origin: center;
 }
-
+@keyframes popup {
+    to {
+      transform: scale(1);
+    }
+} 
 button.MuiButtonBase-root.MuiIconButton-root {
     width: 20px;
     height: 20px;

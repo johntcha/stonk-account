@@ -96,7 +96,7 @@ const Login = () => {
                     </Button>
                         No account yet ?
                     <Button variant="contained" color="primary" onClick={handleSignup}>
-                        Sign up here
+                        Sign up
                     </Button>
                 </form>
                 </div>
