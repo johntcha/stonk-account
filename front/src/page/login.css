@@ -1,22 +1,56 @@
-.login-form{
+.login-form, .signup-form {
     display: inline-grid;
     text-align: center;
 }
 
-.login-content{
+.login-content, .signup-content {
     text-align: center;
     margin-top: 35vh;
     transform: translateY(-50%);
 }
 
-.login-form.label {
+.login-form.label, .signup-form.label {
     font-size: 1.5rem;
 }
 
-.login-form input[type="text"], .login-form input[type="password"] {
+.login-form input[type="text"],
+.login-form input[type="password"],
+.signup-form input[type="text"],
+.signup-form input[type="password"]
+{
     font-size: 1.3rem;
 }
 
-.login-form input{
+.login-form input, .signup-form input{
     margin: 10px 0;
+}
+
+.login-form Button, .signup-form Button {
+    margin-bottom: 10px;
+}
+
+.signup-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.507);
+    animation: popup .3s ease forwards ;
+    transform-origin: center;
+}
+
+.signup-form{
+    border: solid deepskyblue;
+    border-radius: 10%;
+    background: white;
+    padding: 50px;
+}
+
+button.MuiButtonBase-root.MuiIconButton-root {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 15px;
+    justify-self: end;
 }

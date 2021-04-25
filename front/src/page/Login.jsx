@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import RequestService from '../request/RequestService'
 import  { Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
+import FieldInput from '../component/FieldInput'
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 import './login.css'
 
@@ -10,13 +13,16 @@ const Login = () => {
     const [username, setUsername] = useState()
     const [usernameTyped, setUsernameTyped] = useState()
     const [passwordTyped, setPasswordTyped] = useState()
+    // const [emailTyped, setEmailTyped] = useState()
+    const [isCreated, setIsCreated] = useState(false)
     
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
-    const user1 = {
+    const userCredentials = {
         username: usernameTyped,
         password: passwordTyped,
+        // email: emailTyped
     }
     
     
@@ -40,10 +46,26 @@ const Login = () => {
     const handleChangePassword = (event) => {
         setPasswordTyped(event.target.value)
     }
-    const handleSubmit = (event) => {
+    // const handleChangeEmail = (event) => {
+    //     setEmailTyped(event.target.value)
+    // }
+    const handleSubmitSignIn = (event) => {
         event.preventDefault();
-        RequestService.login(user1).then((result) => setToken(result.data.access_token))
+        RequestService.login(userCredentials).then((result) => setToken(result.data.access_token))
     }
+    const handleSubmitSignUp = (event) => {
+        event.preventDefault();
+        RequestService.createAccount(userCredentials).then((result) => {
+            if (result.status === 201) setIsCreated(true)
+        })
+    }
+
+    const [showSignup, setShowSignup] = useState(false);
+
+	const handleSignup = () => {
+		setShowSignup(!showSignup);
+        setIsCreated(false)
+	}
 
     const localStorageHandler = () => {
         if (token){
@@ -55,32 +77,68 @@ const Login = () => {
     if(window.localStorage.getItem('token')) return <Redirect to='/'  />
     return (
         <>
-            {!window.localStorage.getItem('token') && (
             <div className="login-content">
-            <form className="login-form" onSubmit={handleSubmit}>
-                <label>
-                    Username:
-                </label>
-                <input
+                <form className="login-form" onSubmit={handleSubmitSignIn}>
+                    <FieldInput
+                    label="Username :" 
                     type="text"
                     placeholder="Enter your username"
-                    onChange={handleChangeUsername}
-                />
-                <label>
-                    Password:
-                </label>
-                <input
+                    handleChange={handleChangeUsername}
+                    />
+                    <FieldInput
+                    label="Password :" 
                     type="password"
                     placeholder="Enter your password"
-                    onChange={handleChangePassword}
-                />
-                {/* <input type="submit" value="Log in"/> */}
-                <Button variant="contained" color="primary" type="submit">
-                    Log in
-                </Button>
-            </form>
+                    handleChange={handleChangePassword}
+                    />
+                    <Button variant="contained" color="primary" type="submit">
+                        Sign in
+                    </Button>
+                        No account yet ?
+                    <Button variant="contained" color="primary" onClick={handleSignup}>
+                        Sign up here
+                    </Button>
+                </form>
+                </div>
+                {showSignup && (
+                <div className="signup-wrapper">
+                    <div className="signup-content">
+                        <form className="signup-form" onSubmit={handleSubmitSignUp}>
+                            <IconButton aria-label="close" onClick={handleSignup}>
+                                <CloseIcon />
+                            </IconButton>
+                            <FieldInput
+                            label="Username :" 
+                            type="text"
+                            placeholder="Enter your username"
+                            handleChange={handleChangeUsername}
+                            />
+                            <FieldInput
+                            label="Password :" 
+                            type="password"
+                            placeholder="Enter your password"
+                            handleChange={handleChangePassword}
+                            />
+                            {/* <FieldInput
+                            label="Email :" 
+                            type="text"
+                            placeholder="Enter your email"
+                            handleChange={handleChangeEmail}
+                            /> */}
+                            <Button variant="contained" color="primary" type="submit">
+                                Create account
+                            </Button>
+                            {isCreated && (
+                                <div>
+                                    Your account has been created !
+                                </div>
+                            )}
+                        </form>
+                    </div>
             </div>
             )}
+            
+            
         </>
     )
 }

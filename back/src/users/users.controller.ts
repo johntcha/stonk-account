@@ -11,6 +11,7 @@ export class UsersController {
     getUserByUsername(@Param('username') username: string): Promise<Users>{
         return this.usersService.getUserByUsername(username)
     }
+    
     @Post()
     @UsePipes(ValidationPipe)
     createUser(@Body() createUserDto: CreateUserDto): Promise<Users> {

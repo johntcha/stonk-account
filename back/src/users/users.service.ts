@@ -10,18 +10,6 @@ export class UsersService {
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
   ) {}
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
   
   async createUser(createUserDto: CreateUserDto): Promise<Users>{
     return this.usersRepository.createUser(createUserDto);

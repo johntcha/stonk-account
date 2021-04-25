@@ -19,6 +19,15 @@ const RequestService = {
         } catch (error) {
             throw(error)
         }
+    },
+
+    createAccount: async function(credentials){
+        try {
+            const data = await axios.post(`http://localhost:3002/users`, credentials)
+            return data
+        } catch (error) {
+            throw(error)
+        }
     }
 }
 
