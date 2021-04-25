@@ -28,6 +28,15 @@ const RequestService = {
         } catch (error) {
             throw(error)
         }
+    },
+
+    createExpense: async function(expenseData, token){
+        try {
+            const data = await axios.post(`http://localhost:3002/expense`, expenseData, token)
+            return data
+        } catch (error) {
+            throw(error)
+        }
     }
 }
 

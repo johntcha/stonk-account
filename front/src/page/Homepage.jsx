@@ -5,16 +5,27 @@ import CardPieChart from '../component/Cards/CardPieChart';
 import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
 import CardTable from '../component/Cards/CardTable';
+import RequestService from '../request/RequestService';
 
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
-    const [currency, setCurrency] = useState()
+    const [currency, setCurrency] = useState('$')
     const [currencyTable, setCurrencyTable] = useState()
     const [categoryInput, setCategoryInput] = useState()
     const [categoryTable, setCategoryTable] = useState()
     const [amountInput, setAmountInput] = useState()
     const [amountTable, setAmountTable] = useState()
+
+    const expenseData = {
+      category: categoryTable,
+      amount: amountTable,
+      currency: currencyTable
+    }
+    const token = window.localStorage.getItem('token')
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
     
     const currencies = [
         {
@@ -50,11 +61,12 @@ const Homepage = () => {
     const handleChangeAmount= (event) => {
       setAmountInput(event.target.value);
     }
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
       event.preventDefault();
       setCategoryTable(categoryInput);
       setCurrencyTable(currency);
       setAmountTable(amountInput)
+      await RequestService.createExpense(expenseData, config).then((result) => console.log(result))
     }
 
     if (!window.localStorage.getItem('token')) return <Redirect to='/login'  />
