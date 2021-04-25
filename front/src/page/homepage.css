@@ -19,3 +19,7 @@
     grid-column: 3;
     grid-row: 1;
 }
+
+.input-depenses-card{
+    display: grid;
+}

@@ -1,13 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import  { Redirect } from 'react-router-dom'
-import Header from '../component/Header'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import Header from '../component/Header';
+import CardPieChart from '../component/CardPieChart';
+import CardInputData from '../component/CardInputData';
 import './homepage.css'
+import CardWhatever from '../component/CardWhatever';
+
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
+    const [currency, setCurrency] = useState('EUR');
+    const [text, setText] = useState()
+    const [result, setResult] = useState()
+
+    const currencies = [
+        {
+          value: 'USD',
+          label: '$',
+        },
+        {
+          value: 'EUR',
+          label: '€',
+        },
+        {
+          value: 'BTC',
+          label: '฿',
+        },
+        {
+          value: 'JPY',
+          label: '¥',
+        },
+      ];
+
+    const handleChangeCurrency = (event) => {
+        setCurrency(event.target.value);
+    }
+    const handleChangeText= (event) => {
+        setText(event.target.value);
+    }
+    const onSubmit = (event) => {
+        event.preventDefault();
+        setResult(text);
+    }
+
     if (!window.localStorage.getItem('token')) return <Redirect to='/login'  />
     return (
         <>
@@ -17,27 +52,17 @@ const Homepage = () => {
                 username={username}
                 />
                 <div className="card-wrapper">
-                <Card className="card piechart">
-                    <CardContent>
-                        <Typography>
-                            salut
-                        </Typography>
-                    </CardContent>
-                </Card>
-                <Card className="card input-data">
-                    <CardContent>
-                        <Typography>
-                            salut
-                        </Typography>
-                    </CardContent>
-                </Card>
-                <Card className="card whatever">
-                    <CardContent>
-                        <Typography>
-                            salut
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <CardPieChart
+                    result={result}
+                />
+                <CardInputData 
+                currency={currency}
+                handleChangeCurrency={handleChangeCurrency}
+                currencies={currencies}
+                onSubmit={onSubmit}
+                handleChangeText={handleChangeText}
+                />
+                <CardWhatever />
                 </div>
             </>
         )}
