@@ -4,16 +4,22 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography'
 import './card.css'
 
-const CardWhatever = () => {
+const CardTable = ({
+    categoryTable,
+    currencyTable,
+    amountTable,
+}) => {
     return (
         <Card className="card whatever">
             <CardContent>
                 <Typography>
-                    salut
+                    {categoryTable}
+                    {amountTable}
+                    {currencyTable}
                 </Typography>
             </CardContent>
         </Card>
     )
 }
 
-export default CardWhatever
+export default CardTable

@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import  { Redirect } from 'react-router-dom'
 import Header from '../component/Header';
-import CardPieChart from '../component/CardPieChart';
-import CardInputData from '../component/CardInputData';
+import CardPieChart from '../component/Cards/CardPieChart';
+import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
-import CardWhatever from '../component/CardWhatever';
+import CardTable from '../component/Cards/CardTable';
 
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
-    const [currency, setCurrency] = useState('EUR');
-    const [text, setText] = useState()
-    const [result, setResult] = useState()
-
+    const [currency, setCurrency] = useState()
+    const [currencyTable, setCurrencyTable] = useState()
+    const [categoryInput, setCategoryInput] = useState()
+    const [categoryTable, setCategoryTable] = useState()
+    const [amountInput, setAmountInput] = useState()
+    const [amountTable, setAmountTable] = useState()
+    
     const currencies = [
         {
           value: 'USD',
@@ -30,17 +33,28 @@ const Homepage = () => {
           value: 'JPY',
           label: '¥',
         },
-      ];
+    ];
+
+    
+
+    // useEffect(() => {
+    //   onSubmit()
+    // }, []);
 
     const handleChangeCurrency = (event) => {
         setCurrency(event.target.value);
     }
-    const handleChangeText= (event) => {
-        setText(event.target.value);
+    const handleChangeCategory= (event) => {
+      setCategoryInput(event.target.value);
+    }
+    const handleChangeAmount= (event) => {
+      setAmountInput(event.target.value);
     }
     const onSubmit = (event) => {
-        event.preventDefault();
-        setResult(text);
+      event.preventDefault();
+      setCategoryTable(categoryInput);
+      setCurrencyTable(currency);
+      setAmountTable(amountInput)
     }
 
     if (!window.localStorage.getItem('token')) return <Redirect to='/login'  />
@@ -53,16 +67,21 @@ const Homepage = () => {
                 />
                 <div className="card-wrapper">
                 <CardPieChart
-                    result={result}
+                    
                 />
                 <CardInputData 
                 currency={currency}
                 handleChangeCurrency={handleChangeCurrency}
                 currencies={currencies}
                 onSubmit={onSubmit}
-                handleChangeText={handleChangeText}
+                handleChangeCategory={handleChangeCategory}
+                handleChangeAmount={handleChangeAmount}
                 />
-                <CardWhatever />
+                <CardTable
+                categoryTable={categoryTable}
+                currencyTable={currencyTable}
+                amountTable={amountTable}
+                />
                 </div>
             </>
         )}

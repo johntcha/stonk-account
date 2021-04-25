@@ -5,13 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import './card.css'
 
 const CardPieChart = ({
-    result
+
 }) => {
     return (
         <Card className="card piechart">
             <CardContent>
                 <Typography>
-                    {result}
+                    chart
                 </Typography>
             </CardContent>
         </Card>

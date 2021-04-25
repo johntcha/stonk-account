@@ -12,7 +12,8 @@ const CardInputData = ({
     handleChangeCurrency,
     currencies,
     onSubmit,
-    handleChangeText
+    handleChangeCategory,
+    handleChangeAmount
 }) => {
 
     return (
@@ -25,7 +26,7 @@ const CardInputData = ({
                             <TextField 
                             id="standard-basic" 
                             label="Category"
-                            onChange={handleChangeText} />
+                            onChange={handleChangeCategory} />
                             <TextField
                                 id="standard-select-currency"
                                 select
@@ -36,12 +37,16 @@ const CardInputData = ({
                                 style={{marginTop: "25px"}}
                                 >
                                 {currencies.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
+                                    <MenuItem key={option.label} value={option.label}>
                                     {option.label}
                                     </MenuItem>
                                 ))}
                                 </TextField>
-                            <TextField id="standard-basic" label="Amount" />
+                            <TextField
+                            id="standard-basic" 
+                            label="Amount" 
+                            onChange={handleChangeAmount}
+                            />
                             <Button 
                             variant="contained" 
                             color="primary" 
