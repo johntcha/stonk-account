@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersRepository } from './users.repository';
 import { Users } from './users.entity'
@@ -12,7 +12,13 @@ export class UsersService {
   ) {}
   
   async createUser(createUserDto: CreateUserDto): Promise<Users>{
-    return this.usersRepository.createUser(createUserDto);
+    const found = await this.usersRepository.findOne({where: {username: `${createUserDto.username}`}});
+    if (found){
+      throw new ConflictException(`This username already exists`);
+    }
+    else{
+      return this.usersRepository.createUser(createUserDto);
+    }
   }
 
   async getUserByUsername(username: string): Promise<Users>{
@@ -23,8 +29,5 @@ export class UsersService {
     }
 
     return found
-  }
-  async findOne(username: string) {
-    return this.usersRepository.findOne(username);
   }
 }
