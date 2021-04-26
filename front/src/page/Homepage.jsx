@@ -10,7 +10,7 @@ import RequestService from '../request/RequestService';
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
-    const [currency, setCurrency] = useState('$')
+    const [currency, setCurrency] = useState('€')
     const [currencyTable, setCurrencyTable] = useState()
     const [categoryInput, setCategoryInput] = useState()
     const [categoryTable, setCategoryTable] = useState()
@@ -18,9 +18,9 @@ const Homepage = () => {
     const [amountTable, setAmountTable] = useState()
 
     const expenseData = {
-      category: categoryTable,
-      amount: amountTable,
-      currency: currencyTable
+      category: categoryInput,
+      amount: amountInput,
+      currency: currency
     }
     const token = window.localStorage.getItem('token')
     const config = {
@@ -49,8 +49,8 @@ const Homepage = () => {
     
 
     // useEffect(() => {
-    //   onSubmit()
-    // }, []);
+    //   RequestService.createExpense(expenseData, config).then((result) => console.log(result))
+    // }, [expenseData]);
 
     const handleChangeCurrency = (event) => {
         setCurrency(event.target.value);
@@ -61,12 +61,12 @@ const Homepage = () => {
     const handleChangeAmount= (event) => {
       setAmountInput(event.target.value);
     }
-    const onSubmit = async (event) => {
+    const onSubmit = (event) => {
       event.preventDefault();
       setCategoryTable(categoryInput);
       setCurrencyTable(currency);
-      setAmountTable(amountInput)
-      await RequestService.createExpense(expenseData, config).then((result) => console.log(result))
+      setAmountTable(amountInput);
+      RequestService.createExpense(expenseData, config).then((result) => console.log(result))
     }
 
     if (!window.localStorage.getItem('token')) return <Redirect to='/login'  />

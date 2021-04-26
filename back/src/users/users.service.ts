@@ -19,7 +19,7 @@ export class UsersService {
     }
     else{
       const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-      const createdUser = await this.usersRepository.create({
+      const createdUser = this.usersRepository.create({
         ...createUserDto,
         password: hashedPassword
       });

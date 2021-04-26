@@ -1,7 +1,8 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, Unique } from 'typeorm'
 import { Expense } from 'src/expense/expense.entity';
 
 @Entity()
+@Unique(['username'])
 export class Users extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -13,5 +14,5 @@ export class Users extends BaseEntity {
     password: string;
 
     @OneToMany(() => Expense, expense => expense.users)
-    expense: Expense[]
+    expenses: Expense[]
 }

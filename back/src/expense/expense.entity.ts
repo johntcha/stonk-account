@@ -15,6 +15,6 @@ export class Expense extends BaseEntity {
     @Column()
     currency: string;
 
-    @ManyToOne(() => Users, user => user.expense)
+    @ManyToOne(() => Users, user => user.expenses)
     users: Users
 }
