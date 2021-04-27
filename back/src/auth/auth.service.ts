@@ -25,8 +25,11 @@ export class AuthService {
 
   async login(user: any) {
     const payload = { username: user.username, sub: user.id };
+    const expiration = new Date() 
+    const test = Math.floor(expiration.setSeconds(expiration.getSeconds() + 2*60)/1000)
     return {
       access_token: this.jwtService.sign(payload),
+      token_expiration: test
     };
   }
 }

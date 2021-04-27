@@ -23,7 +23,7 @@ export class ExpenseService {
     async getAllUserExpenses(users: Users): Promise<Expense[]>{
         const expenses = await getRepository(Expense)
         .createQueryBuilder("expense")
-        .where("expense.userId = :userId", { userId: users.username })
+        .where("expense.usersUsername = :usersUsername", { usersUsername: users.username })
         .getMany();
     
         if (!expenses) {

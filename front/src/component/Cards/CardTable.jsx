@@ -5,18 +5,23 @@ import Typography from '@material-ui/core/Typography'
 import './card.css'
 
 const CardTable = ({
-    categoryTable,
-    currencyTable,
-    amountTable,
+    expensesList
 }) => {
     return (
         <Card className="card whatever">
             <CardContent>
                 <Typography>
-                    {categoryTable}
-                    {amountTable}
-                    {currencyTable}
+                    Expenses list
                 </Typography>
+                <ul>
+                {expensesList.map((value) => {
+                    return <li key={value.id}>
+                        {value.category}
+                        {value.amount}
+                        {value.currency}
+                        </li>
+                })}
+                </ul>
             </CardContent>
         </Card>
     )

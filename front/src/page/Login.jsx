@@ -15,6 +15,7 @@ const Login = () => {
     const [passwordTyped, setPasswordTyped] = useState()
     // const [emailTyped, setEmailTyped] = useState()
     const [isCreated, setIsCreated] = useState(false)
+    const dateNow = new Date()
     
     const config = {
         headers: { Authorization: `Bearer ${token}` }

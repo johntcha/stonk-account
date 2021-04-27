@@ -37,6 +37,15 @@ const RequestService = {
         } catch (error) {
             throw(error)
         }
+    },
+
+    getAllUserExpenses: async function(token){
+        try {
+            const data = await axios.get(`http://localhost:3002/expense`, token)
+            return data
+        } catch (error) {
+            throw(error)
+        }
     }
 }
 

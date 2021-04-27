@@ -16,6 +16,7 @@ const Homepage = () => {
     const [categoryTable, setCategoryTable] = useState()
     const [amountInput, setAmountInput] = useState()
     const [amountTable, setAmountTable] = useState()
+    const [expensesList, setExpensesList] = useState([])
 
     const expenseData = {
       category: categoryInput,
@@ -46,11 +47,9 @@ const Homepage = () => {
         },
     ];
 
-    
-
-    // useEffect(() => {
-    //   RequestService.createExpense(expenseData, config).then((result) => console.log(result))
-    // }, [expenseData]);
+    useEffect(() => {
+      RequestService.getAllUserExpenses(config).then((result) => {setExpensesList(result.data); console.log(result.data)})
+    }, [categoryTable, amountTable]);
 
     const handleChangeCurrency = (event) => {
         setCurrency(event.target.value);
@@ -61,12 +60,12 @@ const Homepage = () => {
     const handleChangeAmount= (event) => {
       setAmountInput(event.target.value);
     }
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
       event.preventDefault();
+      await RequestService.createExpense(expenseData, config).then((result) => console.log(result))
       setCategoryTable(categoryInput);
       setCurrencyTable(currency);
       setAmountTable(amountInput);
-      RequestService.createExpense(expenseData, config).then((result) => console.log(result))
     }
 
     if (!window.localStorage.getItem('token')) return <Redirect to='/login'  />
@@ -93,6 +92,7 @@ const Homepage = () => {
                 categoryTable={categoryTable}
                 currencyTable={currencyTable}
                 amountTable={amountTable}
+                expensesList={expensesList}
                 />
                 </div>
             </>
