@@ -2,5 +2,5 @@ export class ExpenseDto {
     category: string;
     amount: number;
     currency: string;
-    userId: number;
+    usersUsername: number;
 }

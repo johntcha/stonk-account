@@ -9,13 +9,13 @@ export class ExpenseRepository extends Repository<Expense> {
         createExpenseDto: ExpenseDto,
         users: Users
         ): Promise<Expense> {
-        const { category, amount, currency, userId } = createExpenseDto;
+        const { category, amount, currency, usersUsername } = createExpenseDto;
 
         const expense = new Expense();
         expense.category = category;
         expense.amount = amount;
         expense.currency = currency;
-        expense.users = await Users.findOne(userId);
+        expense.users = await Users.findOne(users.username);
         await expense.save();
 
         return expense
