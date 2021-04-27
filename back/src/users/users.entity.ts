@@ -1,13 +1,10 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, Unique } from 'typeorm'
+import { BaseEntity, Entity, Column, OneToMany, Unique, PrimaryColumn } from 'typeorm'
 import { Expense } from 'src/expense/expense.entity';
 
 @Entity()
 @Unique(['username'])
 export class Users extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
+    @PrimaryColumn()
     username: string;
 
     @Column()
