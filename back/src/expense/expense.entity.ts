@@ -14,6 +14,9 @@ export class Expense extends BaseEntity {
 
     @Column()
     currency: string;
+    
+    @Column('timestamptz')
+    date: Date;
 
     @ManyToOne(() => Users, user => user.expenses)
     users: Users

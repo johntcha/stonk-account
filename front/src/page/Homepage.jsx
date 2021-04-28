@@ -21,6 +21,7 @@ const Homepage = () => {
     const [expensesList, setExpensesList] = useState([])
 
     const expenseData = {
+      date: selectedDate,
       category: categoryInput,
       amount: amountInput,
       currency: currency
@@ -53,12 +54,12 @@ const Homepage = () => {
       RequestService.getAllUserExpenses(config).then((result) => {setExpensesList(result.data); console.log(result.data)})
     }, [categoryTable, amountTable, selectedDateTable]);
 
-    const handleChangeDate = (event) => {
-      setSelectedDate(event.target.value);
+    const handleChangeDate = (date) => {
+      setSelectedDate(date);
     };
 
     const handleChangeCurrency = (event) => {
-        setCurrency(event.target.value);
+      setCurrency(event.target.value);
     }
     const handleChangeCategory= (event) => {
       setCategoryInput(event.target.value);
@@ -69,7 +70,7 @@ const Homepage = () => {
     const onSubmit = async (event) => {
       event.preventDefault();
       await RequestService.createExpense(expenseData, config).then((result) => console.log(result))
-      setSelectedDateTable(selectedDate)
+      setSelectedDateTable(selectedDate);
       setCategoryTable(categoryInput);
       setCurrencyTable(currency);
       setAmountTable(amountInput);

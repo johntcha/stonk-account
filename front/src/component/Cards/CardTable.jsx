@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography'
+import moment from 'moment'
 import './card.css'
 
 const CardTable = ({
@@ -19,6 +19,7 @@ const CardTable = ({
                 <tbody>
                 {expensesList.map((value) => {
                     return <tr key={value.id}>
+                        <td>{moment(value.date).format("L")}</td>
                         <td>{value.category}</td>
                         <td>{value.amount}</td>
                         <td>{value.currency}</td>
