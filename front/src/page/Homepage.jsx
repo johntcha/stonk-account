@@ -10,6 +10,8 @@ import RequestService from '../request/RequestService';
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDateTable, setSelectedDateTable] = useState();
     const [currency, setCurrency] = useState('€')
     const [currencyTable, setCurrencyTable] = useState()
     const [categoryInput, setCategoryInput] = useState()
@@ -49,7 +51,11 @@ const Homepage = () => {
 
     useEffect(() => {
       RequestService.getAllUserExpenses(config).then((result) => {setExpensesList(result.data); console.log(result.data)})
-    }, [categoryTable, amountTable]);
+    }, [categoryTable, amountTable, selectedDateTable]);
+
+    const handleChangeDate = (event) => {
+      setSelectedDate(event.target.value);
+    };
 
     const handleChangeCurrency = (event) => {
         setCurrency(event.target.value);
@@ -63,6 +69,7 @@ const Homepage = () => {
     const onSubmit = async (event) => {
       event.preventDefault();
       await RequestService.createExpense(expenseData, config).then((result) => console.log(result))
+      setSelectedDateTable(selectedDate)
       setCategoryTable(categoryInput);
       setCurrencyTable(currency);
       setAmountTable(amountInput);
@@ -87,8 +94,11 @@ const Homepage = () => {
                 onSubmit={onSubmit}
                 handleChangeCategory={handleChangeCategory}
                 handleChangeAmount={handleChangeAmount}
+                handleChangeDate={handleChangeDate}
+                selectedDate={selectedDate}
                 />
                 <CardTable
+                selectedDateTable={selectedDateTable}
                 categoryTable={categoryTable}
                 currencyTable={currencyTable}
                 amountTable={amountTable}

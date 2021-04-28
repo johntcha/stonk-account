@@ -10,18 +10,22 @@ const CardTable = ({
     return (
         <Card className="card whatever">
             <CardContent>
-                <Typography>
-                    Expenses list
-                </Typography>
-                <ul>
+                <table className="expenses-list">
+                <thead>
+                    <tr>
+                        <th>Expenses list</th>
+                    </tr>
+                </thead>
+                <tbody>
                 {expensesList.map((value) => {
-                    return <li key={value.id}>
-                        {value.category}
-                        {value.amount}
-                        {value.currency}
-                        </li>
+                    return <tr key={value.id}>
+                        <td>{value.category}</td>
+                        <td>{value.amount}</td>
+                        <td>{value.currency}</td>
+                        </tr>
                 })}
-                </ul>
+                </tbody>
+                </table>
             </CardContent>
         </Card>
     )

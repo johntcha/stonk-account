@@ -1,0 +1,8 @@
+table.expenses-list {
+    list-style: none;
+}
+
+table.expenses-list>li {
+    border: solid 1px;
+    padding: 5px;
+}

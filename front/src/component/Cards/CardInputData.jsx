@@ -5,6 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+  } from '@material-ui/pickers';
 import './card.css'
 
 const CardInputData = ({
@@ -13,7 +19,9 @@ const CardInputData = ({
     currencies,
     onSubmit,
     handleChangeCategory,
-    handleChangeAmount
+    handleChangeAmount,
+    handleChangeDate,
+    selectedDate,
 }) => {
 
     return (
@@ -23,6 +31,21 @@ const CardInputData = ({
                             <Typography>
                                 Depenses
                             </Typography>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Date picker inline"
+                            value={selectedDate}
+                            onChange={handleChangeDate}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            />
+                            </MuiPickersUtilsProvider>
                             <TextField 
                             id="standard-basic" 
                             label="Category"
