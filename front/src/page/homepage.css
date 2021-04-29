@@ -11,6 +11,11 @@
     grid-row: 1;
     background-color: salmon;
 }
+.card.account {
+    grid-column: 2 ;
+    grid-row: 1;
+    background-color: salmon;
+}
 .card.input-data {
     grid-column: 2 / 3;
     grid-row: 2;

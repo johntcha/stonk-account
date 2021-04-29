@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import  { Redirect } from 'react-router-dom'
 import Header from '../component/Header';
 import CardPieChart from '../component/Cards/CardPieChart';
+import CardAccount from '../component/Cards/CardAccount';
 import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
 import CardTable from '../component/Cards/CardTable';
@@ -19,6 +20,7 @@ const Homepage = () => {
     const [amountInput, setAmountInput] = useState()
     const [amountTable, setAmountTable] = useState()
     const [expensesList, setExpensesList] = useState([])
+    const [total, setTotal] = useState(0)
 
     const expenseData = {
       date: selectedDate,
@@ -51,8 +53,19 @@ const Homepage = () => {
     ];
 
     useEffect(() => {
-      RequestService.getAllUserExpenses(config).then((result) => {setExpensesList(result.data); console.log(result.data)})
+      RequestService.getAllUserExpenses(config).then((result) => {
+      setExpensesList(result.data); 
+      console.log(result.data);
+      calculateTotalAccount(result.data);
+      })
     }, [categoryTable, amountTable, selectedDateTable]);
+
+    const calculateTotalAccount = ((array) => {
+      const amountArray = []
+      array.map((expense) => amountArray.push(expense.amount))
+      const total = amountArray.reduce((accumulator, currentValue) => accumulator + currentValue)
+      setTotal(total)
+    })
 
     const handleChangeDate = (date) => {
       setSelectedDate(date);
@@ -87,6 +100,9 @@ const Homepage = () => {
                 <div className="card-wrapper">
                 <CardPieChart
                     
+                />
+                <CardAccount
+                total={total}
                 />
                 <CardInputData 
                 currency={currency}
