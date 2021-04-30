@@ -13,11 +13,20 @@ export class ExpenseService {
         private expenseRepository: ExpenseRepository,
       ) {}
     
-    createExpense(
+    async createExpense(
         expenseDto: ExpenseDto,
         users: Users
         ): Promise<Expense> {
-        return this.expenseRepository.createExpense(expenseDto, users)
+        return await this.expenseRepository.createExpense(expenseDto, users)
+    }
+
+    async deleteExpense(
+      id: number,
+    ): Promise<void> {
+      const result = await this.expenseRepository.delete(id)
+      if (result.affected === 0 ){
+        throw new NotFoundException('Expense not found')
+      }
     }
 
     async getAllUserExpenses(users: Users): Promise<Expense[]>{
