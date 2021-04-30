@@ -21,6 +21,7 @@ const Homepage = () => {
     const [amountTable, setAmountTable] = useState()
     const [expensesList, setExpensesList] = useState([])
     const [total, setTotal] = useState(0)
+    const [deleteTrigger, setDeleteTrigger] = useState(true)
 
     const expenseData = {
       date: selectedDate,
@@ -58,19 +59,20 @@ const Homepage = () => {
       console.log(result.data);
       calculateTotalAccount(result.data);
       })
-    }, [categoryTable, amountTable, selectedDateTable]);
+    }, [categoryTable, amountTable, selectedDateTable, deleteTrigger]);
 
     
     const onClickDelete = async (id) => {
       await RequestService.deleteExpense(id, config)
-  }
+      setDeleteTrigger(!deleteTrigger)
+    }
 
     const calculateTotalAccount = ((array) => {
       // if(total !== 0){
         const amountArray = []
         array.map((expense) => amountArray.push(parseFloat(expense.amount)))
         const totalAmount = amountArray.reduce((accumulator, currentValue) => accumulator + currentValue)
-        setTotal(totalAmount)
+        setTotal(totalAmount.toFixed(2))
       // }
     })
 
