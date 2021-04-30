@@ -5,7 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import './card.css'
 
 const CardAccount = ({
-    total
+    total,
+    currencyTable
 }) => {
     return (
         <Card className="card account">
@@ -13,6 +14,7 @@ const CardAccount = ({
                 <Typography>
                     <h2>Account total amount</h2>
                     {total}
+                    {currencyTable}
                 </Typography>
             </CardContent>
         </Card>

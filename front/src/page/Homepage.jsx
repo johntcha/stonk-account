@@ -60,11 +60,18 @@ const Homepage = () => {
       })
     }, [categoryTable, amountTable, selectedDateTable]);
 
+    
+    const onClickDelete = async (id) => {
+      await RequestService.deleteExpense(id, config)
+  }
+
     const calculateTotalAccount = ((array) => {
-      const amountArray = []
-      array.map((expense) => amountArray.push(expense.amount))
-      const total = amountArray.reduce((accumulator, currentValue) => accumulator + currentValue)
-      setTotal(total)
+      // if(total !== 0){
+        const amountArray = []
+        array.map((expense) => amountArray.push(parseFloat(expense.amount)))
+        const totalAmount = amountArray.reduce((accumulator, currentValue) => accumulator + currentValue)
+        setTotal(totalAmount)
+      // }
     })
 
     const handleChangeDate = (date) => {
@@ -115,11 +122,8 @@ const Homepage = () => {
                 selectedDate={selectedDate}
                 />
                 <CardTable
-                selectedDateTable={selectedDateTable}
-                categoryTable={categoryTable}
-                currencyTable={currencyTable}
-                amountTable={amountTable}
                 expensesList={expensesList}
+                onClickDelete={onClickDelete}
                 />
                 </div>
             </>

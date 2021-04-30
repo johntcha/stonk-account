@@ -39,6 +39,14 @@ const RequestService = {
         }
     },
 
+    deleteExpense: async function(id, token){
+        try {
+            await axios.delete(`http://localhost:3002/expense/${id}`, token)
+        } catch (error) {
+            throw(error)
+        }
+    },
+
     getAllUserExpenses: async function(token){
         try {
             const data = await axios.get(`http://localhost:3002/expense`, token)

@@ -2,10 +2,13 @@ import React from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import moment from 'moment'
+import ClearIcon from '@material-ui/icons/Clear';
+import IconButton from '@material-ui/core/IconButton';
 import './card.css'
 
 const CardTable = ({
-    expensesList
+    expensesList,
+    onClickDelete
 }) => {
     return (
         <Card className="card whatever">
@@ -18,12 +21,20 @@ const CardTable = ({
                 </thead>
                 <tbody>
                 {expensesList.map((value) => {
-                    return <tr key={value.id}>
+                    return (<>
+                    <tr key={value.id}>
                         <td>{moment(value.date).format("L")}</td>
                         <td>{value.category}</td>
                         <td>{value.amount}</td>
                         <td>{value.currency}</td>
-                        </tr>
+                        <td>
+                            <IconButton aria-label="clear" onClick={() => {onClickDelete(value.id);
+                            console.log(value.id)}}>
+                                <ClearIcon />
+                            </IconButton>
+                        </td>
+                    </tr>  
+                    </>)
                 })}
                 </tbody>
                 </table>

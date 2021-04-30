@@ -132,6 +132,9 @@ const Login = () => {
                             {isCreated && (
                                 <div>
                                     Your account has been created !
+                                    <Button variant="contained" color="primary" onClick={handleSignup}>
+                                        OK
+                                    </Button>
                                 </div>
                             )}
                         </form>

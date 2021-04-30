@@ -9,7 +9,7 @@ export class Expense extends BaseEntity {
     @Column()
     category: string;
 
-    @Column()
+    @Column("decimal", { precision: 5, scale: 2 })
     amount: number;
 
     @Column()
