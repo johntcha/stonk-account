@@ -7,6 +7,7 @@ import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
 import CardTable from '../component/Cards/CardTable';
 import RequestService from '../request/RequestService';
+import usePrevious from '../customHooks/usePrevious'
 
 
 
@@ -24,6 +25,12 @@ const Homepage = () => {
     const [expensesList, setExpensesList] = useState([])
     const [total, setTotal] = useState(0)
     const [deleteTrigger, setDeleteTrigger] = useState(true)
+    const [checkTableChanges, setCheckTableChanges] = useState(true)
+
+    const prevCategory = usePrevious(categoryTable)
+    const prevDate = usePrevious(selectedDateTable)
+    const prevAmount = usePrevious(amountTable)
+
     const [doughnut, setDoughnut] = useState([
       {
         "id": "stylus",
@@ -86,9 +93,37 @@ const Homepage = () => {
       console.log(result.data);
       calculateTotalAccount(result.data);
       })
+      
     }, [categoryTable, amountTable, selectedDateTable, deleteTrigger]);
 
+    useEffect(()=>{
+      updateChart(expensesList)
+    },[expensesList])
+
+    const checkIfTableChanges = () => {
+      if(
+        prevCategory !== categoryTable ||
+        prevDate !== selectedDateTable ||
+        prevAmount !== amountTable
+        ) {
+          setCheckTableChanges(checkTableChanges)
+        }
+    }
     
+    const updateChart = (expensesList) => {
+      const test = expensesList.map(expense => {
+        if (expense.amount < 0) {
+          const container = {
+            id: expense.category,
+            label: expense.category,
+            value: Math.abs(parseFloat(expense.amount))
+          }
+          return container
+        }
+        
+      })
+      setDoughnut([...doughnut, ...test])
+    }
     const onClickDelete = async (id) => {
       await RequestService.deleteExpense(id, config)
       setDeleteTrigger(!deleteTrigger)
@@ -135,13 +170,13 @@ const Homepage = () => {
       setCategoryTable(categoryInput);
       setCurrencyTable(currency);
       setAmountTable(amountInput);
-      setDoughnut([...doughnut,
-        {
-          "id": categoryInput,
-          "label": categoryInput,
-          "value": -parseInt(amountInput),
-        }
-      ])
+      // setDoughnut([...doughnut,
+      //   {
+      //     "id": categoryInput,
+      //     "label": categoryInput,
+      //     "value": -parseInt(amountInput),
+      //   }
+      // ])
     }
 
     if (!window.localStorage.getItem('token')) return <Redirect to='/login'  />
