@@ -1,7 +1,6 @@
 import React from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -29,9 +28,6 @@ const CardInputData = ({
         <Card className="card input-data">
                     <CardContent>
                         <form className="input-depenses-card" onSubmit={onSubmit}>
-                            <Typography>
-                                Depenses
-                            </Typography>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
                             disableToolbar

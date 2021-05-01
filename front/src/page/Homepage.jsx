@@ -9,6 +9,7 @@ import CardTable from '../component/Cards/CardTable';
 import RequestService from '../request/RequestService';
 
 
+
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
     const [type, setType] = useState('Expense')
@@ -62,6 +63,39 @@ const Homepage = () => {
       },
   ];
 
+  const data = [
+    {
+      "id": "stylus",
+      "label": "stylus",
+      "value": 452,
+      "color": "hsl(9, 70%, 50%)"
+    },
+    {
+      "id": "elixir",
+      "label": "elixir",
+      "value": 138,
+      "color": "hsl(206, 70%, 50%)"
+    },
+    {
+      "id": "scala",
+      "label": "scala",
+      "value": 451,
+      "color": "hsl(307, 70%, 50%)"
+    },
+    {
+      "id": "javascript",
+      "label": "javascript",
+      "value": 385,
+      "color": "hsl(25, 70%, 50%)"
+    },
+    {
+      "id": "css",
+      "label": "css",
+      "value": 10,
+      "color": "hsl(73, 70%, 50%)"
+    }
+  ]
+
     useEffect(() => {
       RequestService.getAllUserExpenses(config).then((result) => {
       setExpensesList(result.data); 
@@ -77,7 +111,6 @@ const Homepage = () => {
     }
 
     const calculateTotalAccount = ((array) => {
-      if(total !== 0){
         const amountArray = []
         array.map((expense) => amountArray.push(parseFloat(expense.amount)))
         if(amountArray.length > 0){
@@ -87,9 +120,6 @@ const Homepage = () => {
         else {
           setTotal(0)
         }
-      } else {
-        setTotal(amountTable)
-      }
     })
 
     const handleChangeType = (event) => {
@@ -133,7 +163,7 @@ const Homepage = () => {
                 />
                 <div className="card-wrapper">
                 <CardPieChart
-                    
+                data={data}
                 />
                 <CardAccount
                 total={total}

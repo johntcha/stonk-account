@@ -32,12 +32,8 @@ const CardTable = ({
             <Tab label="Active" />
             </Tabs>
             <CardContent>
+                <h2>Account history</h2>
                 <table className="expenses-list">
-                <thead>
-                    <tr>
-                        <th>Expenses list</th>
-                    </tr>
-                </thead>
                 <tbody>
                 {expensesList.map((value) => {
                     return (<>
