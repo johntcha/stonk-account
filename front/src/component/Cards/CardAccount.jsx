@@ -22,8 +22,9 @@ const CardAccount = ({
             indicatorColor="primary"
             textColor="primary"
             onChange={handleTabChange}
-            aria-label="disabled tabs example"
             >
+            <Tab label="Active" />
+            <Tab label="Active" />
             <Tab label="Active" />
             <Tab label="Active" />
             </Tabs>

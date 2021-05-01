@@ -25,6 +25,8 @@ const CardPieChart = ({
             >
             <Tab label="Active" />
             <Tab label="Active" />
+            <Tab label="Active" />
+            <Tab label="Active" />
             </Tabs>
             <CardContent>
                 <Typography>

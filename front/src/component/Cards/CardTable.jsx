@@ -28,6 +28,8 @@ const CardTable = ({
             >
             <Tab label="Active" />
             <Tab label="Active" />
+            <Tab label="Active" />
+            <Tab label="Active" />
             </Tabs>
             <CardContent>
                 <table className="expenses-list">

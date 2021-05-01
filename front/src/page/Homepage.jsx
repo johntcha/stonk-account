@@ -11,6 +11,7 @@ import RequestService from '../request/RequestService';
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
+    const [type, setType] = useState('Expense')
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedDateTable, setSelectedDateTable] = useState();
     const [currency, setCurrency] = useState('€')
@@ -52,6 +53,14 @@ const Homepage = () => {
           label: '¥',
         },
     ];
+    const expenseGain = [
+      {
+        label: 'Expense',
+      },
+      {
+        label: 'Gain',
+      },
+  ];
 
     useEffect(() => {
       RequestService.getAllUserExpenses(config).then((result) => {
@@ -68,13 +77,24 @@ const Homepage = () => {
     }
 
     const calculateTotalAccount = ((array) => {
-      // if(total !== 0){
+      if(total !== 0){
         const amountArray = []
         array.map((expense) => amountArray.push(parseFloat(expense.amount)))
-        const totalAmount = amountArray.reduce((accumulator, currentValue) => accumulator + currentValue)
-        setTotal(totalAmount.toFixed(2))
-      // }
+        if(amountArray.length > 0){
+          const totalAmount = amountArray.reduce((accumulator, currentValue) => accumulator + currentValue)
+          setTotal(totalAmount.toFixed(2))
+        }
+        else {
+          setTotal(0)
+        }
+      } else {
+        setTotal(amountTable)
+      }
     })
+
+    const handleChangeType = (event) => {
+      setType(event.target.value);
+    };
 
     const handleChangeDate = (date) => {
       setSelectedDate(date);
@@ -87,7 +107,12 @@ const Homepage = () => {
       setCategoryInput(event.target.value);
     }
     const handleChangeAmount= (event) => {
-      setAmountInput(event.target.value);
+      if (type === 'Expense'){
+        setAmountInput(-event.target.value);
+      } else {
+        setAmountInput(event.target.value);
+      }
+      
     }
     const onSubmit = async (event) => {
       event.preventDefault();
@@ -114,6 +139,7 @@ const Homepage = () => {
                 total={total}
                 />
                 <CardInputData 
+                type={type}
                 currency={currency}
                 handleChangeCurrency={handleChangeCurrency}
                 currencies={currencies}
@@ -122,6 +148,8 @@ const Homepage = () => {
                 handleChangeAmount={handleChangeAmount}
                 handleChangeDate={handleChangeDate}
                 selectedDate={selectedDate}
+                expenseGain={expenseGain}
+                handleChangeType={handleChangeType}
                 />
                 <CardTable
                 expensesList={expensesList}

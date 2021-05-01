@@ -6,10 +6,14 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import './card.css'
 
 const CardInputData = ({
+    type,
+    handleChangeType,
     currency,
     handleChangeCurrency,
     currencies,
@@ -18,6 +22,7 @@ const CardInputData = ({
     handleChangeAmount,
     handleChangeDate,
     selectedDate,
+    expenseGain
 }) => {
 
     return (
@@ -42,25 +47,38 @@ const CardInputData = ({
                             }}
                             />
                             </MuiPickersUtilsProvider>
+                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={type}
+                            onChange={handleChangeType}
+                            >
+                            {expenseGain.map((option) => (
+                                <MenuItem key={option.label} value={option.label}>
+                                {option.label}
+                                </MenuItem>
+                            ))}
+                            </Select>
                             <TextField 
                             id="standard-basic" 
                             label="Category"
                             onChange={handleChangeCategory} />
                             <TextField
-                                id="standard-select-currency"
-                                select
-                                label="Select"
-                                value={currency}
-                                onChange={handleChangeCurrency}
-                                helperText="Please select your currency"
-                                style={{marginTop: "25px"}}
-                                >
-                                {currencies.map((option) => (
-                                    <MenuItem key={option.label} value={option.label}>
-                                    {option.label}
-                                    </MenuItem>
-                                ))}
-                                </TextField>
+                            id="standard-select-currency"
+                            select
+                            label="Select"
+                            value={currency}
+                            onChange={handleChangeCurrency}
+                            helperText="Please select your currency"
+                            style={{marginTop: "25px"}}
+                            >
+                            {currencies.map((option) => (
+                                <MenuItem key={option.label} value={option.label}>
+                                {option.label}
+                                </MenuItem>
+                            ))}
+                            </TextField>
                             <TextField
                             id="standard-basic" 
                             label="Amount" 
