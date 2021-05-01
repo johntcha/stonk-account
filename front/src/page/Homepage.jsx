@@ -24,6 +24,23 @@ const Homepage = () => {
     const [expensesList, setExpensesList] = useState([])
     const [total, setTotal] = useState(0)
     const [deleteTrigger, setDeleteTrigger] = useState(true)
+    const [doughnut, setDoughnut] = useState([
+      {
+        "id": "stylus",
+        "label": "stylus",
+        "value": 40.34,
+      },
+      {
+        "id": "elixir",
+        "label": "elixir",
+        "value": 33,
+      },
+      {
+        "id": "scala",
+        "label": "scala",
+        "value": 39,
+      }
+    ])
 
     const expenseData = {
       date: selectedDate,
@@ -62,39 +79,6 @@ const Homepage = () => {
         label: 'Gain',
       },
   ];
-
-  const data = [
-    {
-      "id": "stylus",
-      "label": "stylus",
-      "value": 452,
-      "color": "hsl(9, 70%, 50%)"
-    },
-    {
-      "id": "elixir",
-      "label": "elixir",
-      "value": 138,
-      "color": "hsl(206, 70%, 50%)"
-    },
-    {
-      "id": "scala",
-      "label": "scala",
-      "value": 451,
-      "color": "hsl(307, 70%, 50%)"
-    },
-    {
-      "id": "javascript",
-      "label": "javascript",
-      "value": 385,
-      "color": "hsl(25, 70%, 50%)"
-    },
-    {
-      "id": "css",
-      "label": "css",
-      "value": 10,
-      "color": "hsl(73, 70%, 50%)"
-    }
-  ]
 
     useEffect(() => {
       RequestService.getAllUserExpenses(config).then((result) => {
@@ -151,6 +135,13 @@ const Homepage = () => {
       setCategoryTable(categoryInput);
       setCurrencyTable(currency);
       setAmountTable(amountInput);
+      setDoughnut([...doughnut,
+        {
+          "id": categoryInput,
+          "label": categoryInput,
+          "value": -parseInt(amountInput),
+        }
+      ])
     }
 
     if (!window.localStorage.getItem('token')) return <Redirect to='/login'  />
@@ -163,7 +154,7 @@ const Homepage = () => {
                 />
                 <div className="card-wrapper">
                 <CardPieChart
-                data={data}
+                doughnut={doughnut}
                 />
                 <CardAccount
                 total={total}
