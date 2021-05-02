@@ -1,4 +1,4 @@
-# Full stack Stonk account project made/ ReactJs & Node.js/NestJS & PostgresSQL
+# Stonk account project / ReactJs & Node.js / NestJS & PostgresSQL
 
 ## Presentation
 
