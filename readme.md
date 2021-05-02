@@ -10,7 +10,7 @@ The application is split into 4 major parts at the moment: the login page, the i
 
 ### Front
 
-The front is a `ReactJS` made application. Code is in .jsx format at the moment but it might be possible to convert it into typescript format (.tsx)
+The front is a `ReactJS` made application. Code is in .jsx format at the moment but it might be possible I convert it into typescript format (.tsx) in the future.
 There are not many pages and components as they rely on the login page and mainly the homepage.
 
 ### Back
@@ -61,5 +61,5 @@ I used [Nivo](https://nivo.rocks/) to create this chart.
 * Styling the application as almost 0 style has been applied
 * Showing error on the front side when requests fail
 * Creating a presentation page (homepage) ?
-* Other features that are not on my mind yet :)
+* Other features that are not on my mind yet :grin:
 
