@@ -43,7 +43,7 @@ const CardInputData = ({
                             }}
                             />
                             </MuiPickersUtilsProvider>
-                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Type</InputLabel>
                             <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
