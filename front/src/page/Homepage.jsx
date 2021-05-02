@@ -7,47 +7,23 @@ import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
 import CardTable from '../component/Cards/CardTable';
 import RequestService from '../request/RequestService';
-import usePrevious from '../customHooks/usePrevious'
-
-
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
     const [type, setType] = useState('Expense')
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedDateTable, setSelectedDateTable] = useState();
+    // const [selectedDateTable, setSelectedDateTable] = useState();
     const [currency, setCurrency] = useState('€')
-    const [currencyTable, setCurrencyTable] = useState()
+    // const [currencyTable, setCurrencyTable] = useState()
     const [categoryInput, setCategoryInput] = useState()
-    const [categoryTable, setCategoryTable] = useState()
+    // const [categoryTable, setCategoryTable] = useState()
     const [amountInput, setAmountInput] = useState()
-    const [amountTable, setAmountTable] = useState()
+    // const [amountTable, setAmountTable] = useState()
     const [expensesList, setExpensesList] = useState([])
     const [total, setTotal] = useState(0)
     const [deleteTrigger, setDeleteTrigger] = useState(true)
-    const [checkTableChanges, setCheckTableChanges] = useState(true)
-
-    const prevCategory = usePrevious(categoryTable)
-    const prevDate = usePrevious(selectedDateTable)
-    const prevAmount = usePrevious(amountTable)
-
-    const [doughnut, setDoughnut] = useState([
-      {
-        "id": "stylus",
-        "label": "stylus",
-        "value": 40.34,
-      },
-      {
-        "id": "elixir",
-        "label": "elixir",
-        "value": 33,
-      },
-      {
-        "id": "scala",
-        "label": "scala",
-        "value": 39,
-      }
-    ])
+    const [dataTable, setDataTable] = useState([])
+    const [doughnut, setDoughnut] = useState([])
 
     const expenseData = {
       date: selectedDate,
@@ -93,37 +69,29 @@ const Homepage = () => {
       console.log(result.data);
       calculateTotalAccount(result.data);
       })
+      console.log('premier')
       
-    }, [categoryTable, amountTable, selectedDateTable, deleteTrigger]);
+    }, [dataTable, deleteTrigger]);
 
     useEffect(()=>{
       updateChart(expensesList)
+      console.log('deuxieme')
     },[expensesList])
-
-    const checkIfTableChanges = () => {
-      if(
-        prevCategory !== categoryTable ||
-        prevDate !== selectedDateTable ||
-        prevAmount !== amountTable
-        ) {
-          setCheckTableChanges(checkTableChanges)
-        }
+    
+    const updateChart = async (expensesList) => {
+        const test = expensesList.map(expense => {
+          if (expense.amount < 0) {
+            const container = {
+              id: expense.category,
+              label: expense.category,
+              value: Math.abs(parseFloat(expense.amount))
+            }
+            return container
+          }
+        })
+        setDoughnut([...test])
     }
     
-    const updateChart = (expensesList) => {
-      const test = expensesList.map(expense => {
-        if (expense.amount < 0) {
-          const container = {
-            id: expense.category,
-            label: expense.category,
-            value: Math.abs(parseFloat(expense.amount))
-          }
-          return container
-        }
-        
-      })
-      setDoughnut([...doughnut, ...test])
-    }
     const onClickDelete = async (id) => {
       await RequestService.deleteExpense(id, config)
       setDeleteTrigger(!deleteTrigger)
@@ -166,17 +134,13 @@ const Homepage = () => {
     const onSubmit = async (event) => {
       event.preventDefault();
       await RequestService.createExpense(expenseData, config).then((result) => console.log(result))
-      setSelectedDateTable(selectedDate);
-      setCategoryTable(categoryInput);
-      setCurrencyTable(currency);
-      setAmountTable(amountInput);
-      // setDoughnut([...doughnut,
-      //   {
-      //     "id": categoryInput,
-      //     "label": categoryInput,
-      //     "value": -parseInt(amountInput),
-      //   }
-      // ])
+      setDataTable([{
+        date: selectedDate,
+        category: categoryInput,
+        currency: currency,
+        amount: amountInput
+        }
+      ])
     }
 
     if (!window.localStorage.getItem('token')) return <Redirect to='/login'  />
