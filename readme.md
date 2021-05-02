@@ -20,6 +20,8 @@ A negative expense is an expense and a positive one is a gain so there is no nee
 
 ## Utilization
 
+I use many component from [Material-UI](https://material-ui.com/) for this application
+
 ### Account/Token
 
 User has to create an account first to have access to the application. When he signs up, he generates a token which is valid for 3 minutes (for development purposes but in a real app, I would propably use 24 hours). If he logs out, the token is deleted.
