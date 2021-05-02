@@ -69,27 +69,22 @@ const Homepage = () => {
       console.log(result.data);
       calculateTotalAccount(result.data);
       })
-      console.log('premier')
-      
     }, [dataTable, deleteTrigger]);
 
     useEffect(()=>{
       updateChart(expensesList)
-      console.log('deuxieme')
     },[expensesList])
     
     const updateChart = async (expensesList) => {
         const test = expensesList.map(expense => {
-          if (expense.amount < 0) {
             const container = {
               id: expense.category,
               label: expense.category,
-              value: Math.abs(parseFloat(expense.amount))
+              value: -parseFloat(expense.amount)
             }
             return container
-          }
         })
-        setDoughnut([...test])
+        setDoughnut(test)
     }
     
     const onClickDelete = async (id) => {
