@@ -11,16 +11,13 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import './card.css'
 
 const CardInputData = ({
+    state,
+    dispatch,
     type,
     handleChangeType,
-    currency,
-    handleChangeCurrency,
     currencies,
     onSubmit,
-    handleChangeCategory,
     handleChangeAmount,
-    handleChangeDate,
-    selectedDate,
     expenseGain
 }) => {
 
@@ -36,8 +33,8 @@ const CardInputData = ({
                             margin="normal"
                             id="date-picker-inline"
                             label="Date picker inline"
-                            value={selectedDate}
-                            onChange={handleChangeDate}
+                            value={state.selectedDate}
+                            onChange={(e) => dispatch({type: 'selectedDate', payload: e})}
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }}
@@ -59,13 +56,13 @@ const CardInputData = ({
                             <TextField 
                             id="standard-basic" 
                             label="Category"
-                            onChange={handleChangeCategory} />
+                            onChange={(e) => dispatch({type: 'category', payload: e.target.value})} />
                             <TextField
                             id="standard-select-currency"
                             select
                             label="Select"
-                            value={currency}
-                            onChange={handleChangeCurrency}
+                            value={state.currency}
+                            onChange={(e) => dispatch({type: 'currency', payload: e.target.value})}
                             helperText="Please select your currency"
                             style={{marginTop: "25px"}}
                             >

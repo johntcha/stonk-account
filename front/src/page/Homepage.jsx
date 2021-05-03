@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import  { Redirect } from 'react-router-dom'
 import Header from '../component/Header';
 import CardPieChart from '../component/Cards/CardPieChart';
@@ -7,30 +7,31 @@ import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
 import CardTable from '../component/Cards/CardTable';
 import RequestService from '../request/RequestService';
+import formReducer from '../reducers/formReducer'
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
     const [type, setType] = useState('Expense')
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    // const [selectedDateTable, setSelectedDateTable] = useState();
-    const [currency, setCurrency] = useState('€')
-    // const [currencyTable, setCurrencyTable] = useState()
-    const [categoryInput, setCategoryInput] = useState()
-    // const [categoryTable, setCategoryTable] = useState()
-    const [amountInput, setAmountInput] = useState()
-    // const [amountTable, setAmountTable] = useState()
     const [expensesList, setExpensesList] = useState([])
     const [total, setTotal] = useState(0)
     const [deleteTrigger, setDeleteTrigger] = useState(true)
     const [dataTable, setDataTable] = useState([])
     const [doughnut, setDoughnut] = useState([])
+    
+    const initialState = {
+      selectedDate: new Date(),
+      category: "",
+      currency: "€",
+      amount: "",
+    };
 
-    const expenseData = {
-      date: selectedDate,
-      category: categoryInput,
-      amount: amountInput,
-      currency: currency
-    }
+  const [state, dispatch] = useReducer(formReducer, initialState);
+  const expenseData = {
+    date: state.selectedDate,
+    category: state.category,
+    amount: state.amount,
+    currency: state.currency
+  }
     const token = window.localStorage.getItem('token')
     const config = {
       headers: { Authorization: `Bearer ${token}` }
@@ -84,7 +85,8 @@ const Homepage = () => {
             }
             return container
         })
-        setDoughnut(test)
+        const chartExpenseData = test.filter(neg => neg.value > 0)
+        setDoughnut(chartExpenseData)
     }
     
     const onClickDelete = async (id) => {
@@ -108,21 +110,11 @@ const Homepage = () => {
       setType(event.target.value);
     };
 
-    const handleChangeDate = (date) => {
-      setSelectedDate(date);
-    };
-
-    const handleChangeCurrency = (event) => {
-      setCurrency(event.target.value);
-    }
-    const handleChangeCategory= (event) => {
-      setCategoryInput(event.target.value);
-    }
     const handleChangeAmount= (event) => {
       if (type === 'Expense'){
-        setAmountInput(-event.target.value);
+        dispatch({type: 'amountNeg', payload: event.target.value})
       } else {
-        setAmountInput(event.target.value);
+        dispatch({type: 'amountPos', payload: event.target.value})
       }
       
     }
@@ -130,10 +122,10 @@ const Homepage = () => {
       event.preventDefault();
       await RequestService.createExpense(expenseData, config).then((result) => console.log(result))
       setDataTable([{
-        date: selectedDate,
-        category: categoryInput,
-        currency: currency,
-        amount: amountInput
+        date: state.selectedDate,
+        category: state.category,
+        currency: state.currency,
+        amount: state.amount
         }
       ])
     }
@@ -154,15 +146,12 @@ const Homepage = () => {
                 total={total}
                 />
                 <CardInputData 
+                state={state}
+                dispatch={dispatch}
                 type={type}
-                currency={currency}
-                handleChangeCurrency={handleChangeCurrency}
                 currencies={currencies}
                 onSubmit={onSubmit}
-                handleChangeCategory={handleChangeCategory}
                 handleChangeAmount={handleChangeAmount}
-                handleChangeDate={handleChangeDate}
-                selectedDate={selectedDate}
                 expenseGain={expenseGain}
                 handleChangeType={handleChangeType}
                 />
