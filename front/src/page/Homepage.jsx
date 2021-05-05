@@ -86,7 +86,14 @@ const Homepage = () => {
             return container
         })
         const chartExpenseData = test.filter(neg => neg.value > 0)
+        // const doublon = await chartExpenseData.findIndex(expense => doughnut.map(test => {return test.id}).includes(expense.id))
+        const doublon = await chartExpenseData.findIndex(expense => doughnut.map(test => {return test.id}).includes(expense.id))
+        if(doublon){
+          const index = chartExpenseData.indexOf(doublon)
+        }
+        
         setDoughnut(chartExpenseData)
+        console.log()
     }
     
     const onClickDelete = async (id) => {

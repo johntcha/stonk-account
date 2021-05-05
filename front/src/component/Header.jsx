@@ -30,6 +30,14 @@ const Header = (props) => {
             >
                 Log Out
             </Button>
+            <Button
+                variant="contained"
+                color="secondary"
+                className="logout-button-mobile"
+                startIcon={<ExitToAppIcon />}
+                onClick={LogOut}
+            >
+            </Button>
         </div>
     )
 }
