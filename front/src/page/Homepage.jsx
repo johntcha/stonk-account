@@ -6,7 +6,7 @@ import CardAccount from '../component/Cards/CardAccount';
 import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
 import CardTable from '../component/Cards/CardTable';
-import {deleteExpense, createExpense, getAllUserExpenses} from '../request/RequestService';
+import {deleteExpense, createExpense, getAllUserExpenses} from '../request/RequestService.jsx';
 import formReducer from '../reducers/formReducer'
 
 const Homepage = () => {

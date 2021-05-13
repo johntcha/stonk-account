@@ -37,7 +37,7 @@ import axios from 'axios'
         }
     }
 
-    export const deleteExpense = async function(id, token) => {
+    export const deleteExpense = async (id, token) => {
         try {
             await axios.delete(`http://localhost:3002/expense/${id}`, token)
         } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import RequestService from '../request/RequestService'
+import { login, displayUserLogged, createAccount } from '../request/RequestService.jsx'
 import  { Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import FieldInput from '../component/FieldInput'
@@ -29,7 +29,7 @@ const Login = () => {
     
     const getUsername = (()=>{
         if (token)
-         RequestService.displayUserLogged(config).then((result) => {
+         displayUserLogged(config).then((result) => {
              setUsername(result.data.username)
             //  console.log(result)
             })
@@ -52,11 +52,11 @@ const Login = () => {
     // }
     const handleSubmitSignIn = (event) => {
         event.preventDefault();
-        RequestService.login(userCredentials).then((result) => setToken(result.data.access_token))
+        login(userCredentials).then((result) => setToken(result.data.access_token))
     }
     const handleSubmitSignUp = (event) => {
         event.preventDefault();
-        RequestService.createAccount(userCredentials).then((result) => {
+        createAccount(userCredentials).then((result) => {
             if (result.status === 201) setIsCreated(true)
         })
     }
