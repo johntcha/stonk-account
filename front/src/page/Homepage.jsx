@@ -72,7 +72,7 @@ const Homepage = () => {
       })
     }, [dataTable, deleteTrigger]);
     
-    const updateChart = useCallback(() => async (expensesList) => {
+    const updateChart = async (expensesList) => {
       const test = expensesList.map((expense) => {
         const container = {
           id: expense.category,
@@ -83,24 +83,24 @@ const Homepage = () => {
       });
       const chartExpenseData = test.filter((neg) => neg.value > 0);
       // const doublon = await chartExpenseData.findIndex(expense => doughnut.map(test => {return test.id}).includes(expense.id))
-      const doublon = await chartExpenseData.findIndex((expense) =>
-        doughnut
-          .map((test) => {
-            return test.id;
-          })
-          .includes(expense.id)
-      );
-      if (doublon) {
-        const index = chartExpenseData.indexOf(doublon);
-      }
+      // const doublon = await chartExpenseData.findIndex((expense) =>
+      //   doughnut
+      //     .map((test) => {
+      //       return test.id;
+      //     })
+      //     .includes(expense.id)
+      // );
+      // if (doublon) {
+      //   const index = chartExpenseData.indexOf(doublon);
+      // }
 
       setDoughnut(chartExpenseData);
       console.log();
-    }, [doughnut]);
+    };
 
     useEffect(()=>{
       updateChart(expensesList)
-    },[expensesList, updateChart])
+    },[expensesList])
     
     const onClickDelete = async (id) => {
       await deleteExpense(id, config)
