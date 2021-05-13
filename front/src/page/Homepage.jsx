@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, useCallback } from 'react'
 import  { Redirect } from 'react-router-dom'
 import Header from '../component/Header';
 import CardPieChart from '../component/Cards/CardPieChart';
@@ -6,7 +6,7 @@ import CardAccount from '../component/Cards/CardAccount';
 import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
 import CardTable from '../component/Cards/CardTable';
-import RequestService from '../request/RequestService';
+import {deleteExpense, createExpense, getAllUserExpenses} from '../request/RequestService';
 import formReducer from '../reducers/formReducer'
 
 const Homepage = () => {
@@ -65,39 +65,45 @@ const Homepage = () => {
   ];
 
     useEffect(() => {
-      RequestService.getAllUserExpenses(config).then((result) => {
+      getAllUserExpenses(config).then((result) => {
       setExpensesList(result.data); 
       console.log(result.data);
       calculateTotalAccount(result.data);
       })
     }, [dataTable, deleteTrigger]);
+    
+    const updateChart = useCallback(() => async (expensesList) => {
+      const test = expensesList.map((expense) => {
+        const container = {
+          id: expense.category,
+          label: expense.category,
+          value: -parseFloat(expense.amount),
+        };
+        return container;
+      });
+      const chartExpenseData = test.filter((neg) => neg.value > 0);
+      // const doublon = await chartExpenseData.findIndex(expense => doughnut.map(test => {return test.id}).includes(expense.id))
+      const doublon = await chartExpenseData.findIndex((expense) =>
+        doughnut
+          .map((test) => {
+            return test.id;
+          })
+          .includes(expense.id)
+      );
+      if (doublon) {
+        const index = chartExpenseData.indexOf(doublon);
+      }
+
+      setDoughnut(chartExpenseData);
+      console.log();
+    }, [doughnut]);
 
     useEffect(()=>{
       updateChart(expensesList)
-    },[expensesList])
-    
-    const updateChart = async (expensesList) => {
-        const test = expensesList.map(expense => {
-            const container = {
-              id: expense.category,
-              label: expense.category,
-              value: -parseFloat(expense.amount)
-            }
-            return container
-        })
-        const chartExpenseData = test.filter(neg => neg.value > 0)
-        // const doublon = await chartExpenseData.findIndex(expense => doughnut.map(test => {return test.id}).includes(expense.id))
-        const doublon = await chartExpenseData.findIndex(expense => doughnut.map(test => {return test.id}).includes(expense.id))
-        if(doublon){
-          const index = chartExpenseData.indexOf(doublon)
-        }
-        
-        setDoughnut(chartExpenseData)
-        console.log()
-    }
+    },[expensesList, updateChart])
     
     const onClickDelete = async (id) => {
-      await RequestService.deleteExpense(id, config)
+      await deleteExpense(id, config)
       setDeleteTrigger(!deleteTrigger)
     }
 
@@ -127,7 +133,7 @@ const Homepage = () => {
     }
     const onSubmit = async (event) => {
       event.preventDefault();
-      await RequestService.createExpense(expenseData, config).then((result) => console.log(result))
+      await createExpense(expenseData, config).then((result) => console.log(result))
       setDataTable([{
         date: state.selectedDate,
         category: state.category,
