@@ -16,7 +16,7 @@ const Homepage = () => {
     const [total, setTotal] = useState(0)
     const [deleteTrigger, setDeleteTrigger] = useState(true)
     const [dataTable, setDataTable] = useState([])
-    const [doughnut, setDoughnut] = useState([])
+    const [doughnut, setDoughnut] = useState()
     const [tabArray, setTabArray] = useState([])
     
     const initialState = {
@@ -74,7 +74,7 @@ const Homepage = () => {
     }, [dataTable, deleteTrigger]);
     
     const updateChart = async (expensesList) => {
-      const test = expensesList.map((expense) => {
+      const chartData = expensesList.map((expense) => {
         const container = {
           id: expense.category,
           label: expense.category,
@@ -82,26 +82,21 @@ const Homepage = () => {
         };
         return container;
       });
-      const chartExpenseData = test.filter((neg) => neg.value > 0);
-      // const doublon = await chartExpenseData.findIndex(expense => doughnut.map(test => {return test.id}).includes(expense.id))
-      // const doublon = await chartExpenseData.findIndex((expense) =>
-      //   doughnut
-      //     .map((test) => {
-      //       return test.id;
-      //     })
-      //     .includes(expense.id)
-      // );
-      // if (doublon) {
-      //   const index = chartExpenseData.indexOf(doublon);
-      // }
+      const chartExpenseData = await chartData.filter((neg) => neg.value > 0);
+      const chartExpenseDataPrevious = [...chartExpenseData.slice(0, -1)];
 
-      setDoughnut(chartExpenseData);
-      console.log();
+      const doublonIndex = await chartExpenseDataPrevious.findIndex((expense) => expense.id === chartExpenseData[chartExpenseData.length -1].id)
+      if (doublonIndex !== -1) {
+        chartExpenseDataPrevious[doublonIndex].value += chartExpenseData[chartExpenseData.length -1].value
+        setDoughnut(chartExpenseDataPrevious);
+      } else {
+        setDoughnut(chartExpenseData);
+      }
     };
 
     useEffect(()=>{
       updateChart(expensesList)
-    },[expensesList])
+    }, [expensesList])
     
     const onClickDelete = async (id) => {
       await deleteExpense(id, config)
