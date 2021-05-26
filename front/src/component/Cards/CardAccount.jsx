@@ -9,7 +9,7 @@ import './card.css'
 
 const CardAccount = ({
     total,
-    currencyTable
+    currency
 }) => {
     const [value, setValue] = useState(0);
 
@@ -33,7 +33,7 @@ const CardAccount = ({
                 <Typography>
                     <h2>Account total amount</h2>
                     {total}
-                    {currencyTable}
+                    {currency}
                 </Typography>
             </CardContent>
         </Card>

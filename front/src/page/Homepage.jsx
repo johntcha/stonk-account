@@ -158,6 +158,7 @@ const Homepage = () => {
                 />
                 <CardAccount
                 total={total}
+                currency={expenseData.currency}
                 />
                 <CardInputData 
                 state={state}
