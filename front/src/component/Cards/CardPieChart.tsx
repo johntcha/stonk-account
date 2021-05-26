@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Tabs from '@material-ui/core/Tabs';
@@ -7,12 +7,22 @@ import { ResponsivePie } from '@nivo/pie'
 import AddIcon from '@material-ui/icons/Add';
 import './card.css'
 
+interface Doughnut {
+    id: string
+    label: string
+    value: number
+}
+
+interface CardPiedChartProps {
+    doughnut: Array<Doughnut>
+}
+
 const CardPieChart = ({
     doughnut 
-}) => {
-    const [value, setValue] = useState(0);
+}: CardPiedChartProps) => {
+    const [value, setValue] = useState<number>(0);
 
-    const handleTabChange = (event, newValue) => {
+    const handleTabChange = (event: ChangeEvent<{}>, newValue: number): void => {
         setValue(newValue);
     };
     return (
