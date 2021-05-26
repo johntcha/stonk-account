@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent, FormEventHandler } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -10,6 +10,22 @@ import Select from '@material-ui/core/Select';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import './card.css'
 
+interface currencies {
+    label: string
+    value: string
+}
+
+interface CardInputDataProps {
+    state: any
+    dispatch: Function
+    type: string
+    handleChangeType
+    currencies: Array<currencies>
+    onSubmit: FormEventHandler<HTMLFormElement>
+    handleChangeAmount
+    expenseGain: Array<any>
+}
+
 const CardInputData = ({
     state,
     dispatch,
@@ -19,7 +35,7 @@ const CardInputData = ({
     onSubmit,
     handleChangeAmount,
     expenseGain
-}) => {
+}: CardInputDataProps) => {
 
     return (
         <Card className="card input-data">
