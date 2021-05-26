@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import moment from 'moment'
@@ -9,13 +9,26 @@ import Tab from '@material-ui/core/Tab';
 import AddIcon from '@material-ui/icons/Add';
 import './card.css'
 
+interface ExpensesList {
+    id: number
+    amount: string
+    category: string
+    currency: string
+    date: string
+}
+
+interface CardTableProps {
+    expensesList: Array<ExpensesList>
+    onClickDelete: Function
+}
+
 const CardTable = ({
     expensesList,
     onClickDelete
-}) => {
-    const [value, setValue] = useState(0);
+}: CardTableProps) => {
+    const [value, setValue] = useState<number>(0);
 
-    const handleTabChange = (event, newValue) => {
+    const handleTabChange = (event: ChangeEvent<{}>, newValue: number): void => {
         setValue(newValue);
     };
     return (
