@@ -6,6 +6,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import AddIcon from '@material-ui/icons/Add';
 import './card.css'
 
 const CardTable = ({
@@ -27,9 +28,9 @@ const CardTable = ({
             aria-label="disabled tabs example"
             >
             <Tab label="Active" />
-            <Tab label="Active" />
-            <Tab label="Active" />
-            <Tab label="Active" />
+            <button className="tab-add">
+                <AddIcon />
+            </button>
             </Tabs>
             <CardContent>
                 <h2>Account history</h2>

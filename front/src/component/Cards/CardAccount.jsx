@@ -4,6 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import AddIcon from '@material-ui/icons/Add';
 import './card.css'
 
 const CardAccount = ({
@@ -24,9 +25,9 @@ const CardAccount = ({
             onChange={handleTabChange}
             >
             <Tab label="Active" />
-            <Tab label="Active" />
-            <Tab label="Active" />
-            <Tab label="Active" />
+            <button className="tab-add">
+                <AddIcon />
+            </button>
             </Tabs>
             <CardContent>
                 <Typography>

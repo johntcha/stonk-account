@@ -4,6 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { ResponsivePie } from '@nivo/pie'
+import AddIcon from '@material-ui/icons/Add';
 import './card.css'
 
 const CardPieChart = ({
@@ -25,9 +26,9 @@ const CardPieChart = ({
             aria-label="disabled tabs example"
             >
             <Tab label="Active" />
-            <Tab label="Active" />
-            <Tab label="Active" />
-            <Tab label="Active" />
+            <button className="tab-add">
+                <AddIcon />
+            </button>
             </Tabs>
             <CardContent >
                 <h2>Total expenses:</h2>

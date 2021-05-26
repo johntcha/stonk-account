@@ -17,6 +17,7 @@ const Homepage = () => {
     const [deleteTrigger, setDeleteTrigger] = useState(true)
     const [dataTable, setDataTable] = useState([])
     const [doughnut, setDoughnut] = useState([])
+    const [tabArray, setTabArray] = useState([])
     
     const initialState = {
       selectedDate: new Date(),
