@@ -37,6 +37,15 @@ import axios from 'axios'
         }
     }
 
+    export const getExpense = async (id, token) => {
+        try {
+            const data = await axios.get(`http://localhost:3002/expense/${id}`, token)
+            return data
+        } catch (error) {
+            throw(error)
+        }
+    }
+
     export const deleteExpense = async (id, token) => {
         try {
             await axios.delete(`http://localhost:3002/expense/${id}`, token)
@@ -49,6 +58,14 @@ import axios from 'axios'
         try {
             const data = await axios.get(`http://localhost:3002/expense`, token)
             return data
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    export const activateIsDebited = async (id, token) => {
+        try {
+            await axios.patch(`http://localhost:3002/expense/activate/${id}`, null, token)
         } catch (error) {
             throw(error)
         }
