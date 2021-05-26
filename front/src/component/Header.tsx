@@ -4,9 +4,13 @@ import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './header.css'
 
-const Header = (props) => {
+interface HeaderProps {
+    username: string
+}
+
+const Header = (props: HeaderProps) => {
     const history = useHistory();
-    const LogOut = () => {
+    const LogOut = (): void => {
         if (window.localStorage.getItem('token')){
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('username')
@@ -14,7 +18,7 @@ const Header = (props) => {
             history.push(path);
         }
     }
-    const capitalizeFirstLetter = (string) => {
+    const capitalizeFirstLetter = (string: string): string => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
