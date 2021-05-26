@@ -20,4 +20,7 @@ export class Expense extends BaseEntity {
 
     @ManyToOne(() => Users, user => user.expenses)
     users: Users
+
+    @Column('bool')
+    isDebited: boolean
 }

@@ -29,6 +29,15 @@ export class ExpenseService {
       }
     }
 
+    async getExpenseById(id: number): Promise<Expense> {
+      const found = await this.expenseRepository.findOne(id);
+
+      if(!found) {
+        throw new NotFoundException(`Expense with ID "${id}" not found`);
+      }
+      return found;
+    }
+
     async getAllUserExpenses(users: Users): Promise<Expense[]>{
         const expenses = await getRepository(Expense)
         .createQueryBuilder("expense")
@@ -41,4 +50,11 @@ export class ExpenseService {
     
         return expenses
       }
+
+    async activateIsDebited(id: number): Promise<Expense>{
+      const expense = await this.getExpenseById(id)
+      expense.isDebited = !expense.isDebited;
+      await expense.save();
+      return expense
+    }
 }

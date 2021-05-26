@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query, Request, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Request, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/users/get-user.decorator';
 import { Users } from 'src/users/users.entity';
@@ -27,6 +27,15 @@ export class ExpenseController {
         return this.expenseService.createExpense(expenseDto, users)
     }
 
+    @Get('/:id')
+    @UsePipes(ValidationPipe)
+    getExpenseById(
+        @Param('id', ParseIntPipe)
+        id:number
+        ): Promise<Expense> {
+        return this.expenseService.getExpenseById(id)
+    }
+
     @Delete('/:id')
     @UsePipes(ValidationPipe)
     deleteExpense(
@@ -34,5 +43,14 @@ export class ExpenseController {
         id:number
         ): Promise<void> {
         return this.expenseService.deleteExpense(id)
+    }
+
+    @Patch('/activate/:id')
+    @UsePipes(ValidationPipe)
+    activateIsDebited(
+        @Param('id', ParseIntPipe)
+        id:number
+        ): Promise<Expense> {
+        return this.expenseService.activateIsDebited(id)
     }
 }

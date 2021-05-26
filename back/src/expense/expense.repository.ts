@@ -17,6 +17,7 @@ export class ExpenseRepository extends Repository<Expense> {
         expense.currency = currency;
         expense.date = date;
         expense.users = await Users.findOne(users.username);
+        expense.isDebited = false;
         await expense.save();
         delete expense.users
 
