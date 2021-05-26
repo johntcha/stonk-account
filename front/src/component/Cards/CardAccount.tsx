@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -17,12 +17,17 @@ const CardAccount = ({
     currency
 }: CardAccountProps) => {
     const [value, setValue] = useState<number>(0);
+    const [styleCard, setStyleCard] = useState<string>("")
 
     const handleTabChange = (event: ChangeEvent<{}>, newValue: number): void => {
         setValue(newValue);
     };
+
+    useEffect(() => {
+        total > 0 ? setStyleCard("yellowgreen") : setStyleCard("red")
+    }, [total])
     return (
-        <Card className="card account">
+        <Card className="card account" style={{ backgroundColor: styleCard }}>
             <Tabs
             value={value}
             indicatorColor="primary"
