@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import moment from 'moment'
@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddIcon from '@material-ui/icons/Add';
-import Checkbox from '@material-ui/core/Checkbox';
 import './card.css'
 
 interface ExpensesList {
@@ -16,29 +15,38 @@ interface ExpensesList {
     category: string
     currency: string
     date: string
+    isDebited: boolean
 }
 
 interface CardTableProps {
     expensesList: Array<ExpensesList>
     onClickDelete: Function
     onClickActivate: Function
-    isChecked: Function
-    checked: boolean
 }
 
 const CardTable = ({
     expensesList,
     onClickDelete,
     onClickActivate,
-    isChecked,
-    checked
 }: CardTableProps) => {
+    console.log(expensesList)
     const [value, setValue] = useState<number>(0);
-
+    const [checked, setChecked] = useState<Array<boolean>>(new Array(expensesList.length).fill(false));
     const handleTabChange = (event: ChangeEvent<{}>, newValue: number): void => {
         setValue(newValue);
     };
 
+    useEffect(() => {
+        setChecked(expensesList.map((exp) => exp.isDebited))
+    }, [expensesList]);
+
+    const handleOnChange = (position: number, id: number) => {
+        const updatedChecked = checked.map((item: boolean, index: number) =>
+          index === position ? !item : item
+        );
+        setChecked(updatedChecked);
+        onClickActivate(id)
+      };
     return (
         <Card className="card whatever">
             <Tabs
@@ -57,18 +65,14 @@ const CardTable = ({
                 <h2>Account history</h2>
                 <table className="expenses-list">
                 <tbody>
-                {expensesList.map((value) => {
+                {expensesList.map((value, index) => {
                     return (
-                    <>
-                    
                     <tr key={value.id}>
                         <td>
-                            <Checkbox
-                            onChange={() => isChecked(value.id)}
-                            checked={checked}
-                            color="primary"
-                            inputProps={{ 'aria-label': 'secondary checkbox' }}
-                            onClick={() => onClickActivate(value.id)}
+                            <input
+                            type="checkbox"
+                            checked={checked[index]}
+                            onChange={() => handleOnChange(index, value.id)}
                             />
                         </td>
                         <td>{moment(value.date).format("L")}</td>
@@ -82,8 +86,8 @@ const CardTable = ({
                                 <ClearIcon color="action" />
                             </IconButton>
                         </td>
-                    </tr>  
-                    </>)
+                    </tr>
+                    )
                 })}
                 </tbody>
                 </table>

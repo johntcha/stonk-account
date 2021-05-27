@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useCallback } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import  { Redirect } from 'react-router-dom'
 import Header from '../component/Header';
 import CardPieChart from '../component/Cards/CardPieChart';
@@ -6,7 +6,7 @@ import CardAccount from '../component/Cards/CardAccount';
 import CardInputData from '../component/Cards/CardInputData';
 import './homepage.css'
 import CardTable from '../component/Cards/CardTable';
-import { deleteExpense, createExpense, getAllUserExpenses, activateIsDebited, getExpense } from '../request/RequestService.jsx';
+import { deleteExpense, createExpense, getAllUserExpenses, activateIsDebited } from '../request/RequestService.jsx';
 import formReducer from '../reducers/formReducer'
 
 const Homepage = () => {
@@ -17,8 +17,7 @@ const Homepage = () => {
     const [deleteTrigger, setDeleteTrigger] = useState(true)
     const [dataTable, setDataTable] = useState([])
     const [doughnut, setDoughnut] = useState()
-    const [tabArray, setTabArray] = useState([])
-    const [checked, setChecked] = useState();
+    const [tabArray, setTabArray] = useState([]) 
     
     const initialState = {
       selectedDate: new Date(),
@@ -94,21 +93,6 @@ const Homepage = () => {
         setDoughnut(chartExpenseData);
       }
     };
-
-    const isChecked = async (id) => {
-      try {
-        const expense = await getExpense(id, config)
-        console.log(expense)
-        console.log(expense.data.isDebited)
-        setChecked(expense.data.isDebited)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    useEffect(() => {
-      console.log(checked)
-    }, [checked])
 
     useEffect(()=>{
       updateChart(expensesList)
@@ -189,8 +173,6 @@ const Homepage = () => {
                 expensesList={expensesList}
                 onClickDelete={onClickDelete}
                 onClickActivate={onClickActivate}
-                isChecked={isChecked}
-                checked={checked}
                 />
                 </div>
             </>
