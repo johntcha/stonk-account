@@ -5,7 +5,7 @@ import CardPieChart from '../component/Cards/CardPieChart';
 import CardAccount from '../component/Cards/CardAccount';
 import CardInputData from '../component/Cards/CardInputData';
 import CardTable from '../component/Cards/CardTable';
-import { deleteExpense, getAllUserExpenses, activateIsDebited } from '../request/RequestService.jsx';
+import { deleteExpense, getAllUserExpenses, activateIsDebited } from '../request/RequestService';
 import './homepage.css'
 
 const Homepage = () => {
