@@ -20,7 +20,6 @@ interface CardPiedChartProps {
 const CardPieChart = ({
     doughnut 
 }: CardPiedChartProps) => {
-    console.log("pie")
     const [value, setValue] = useState<number>(0);
 
     const handleTabChange = (event: ChangeEvent<{}>, newValue: number): void => {
