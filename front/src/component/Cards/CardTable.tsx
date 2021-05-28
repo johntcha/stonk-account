@@ -29,7 +29,7 @@ const CardTable = ({
     onClickDelete,
     onClickActivate,
 }: CardTableProps) => {
-    console.log(expensesList)
+    console.log("table")
     const [value, setValue] = useState<number>(0);
     const [checked, setChecked] = useState<Array<boolean>>(new Array(expensesList.length).fill(false));
     const handleTabChange = (event: ChangeEvent<{}>, newValue: number): void => {

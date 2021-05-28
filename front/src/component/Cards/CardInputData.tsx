@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEventHandler } from 'react'
+import React, { useReducer, useState } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +8,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { createExpense } from '../../request/RequestService.jsx';
 import './card.css'
 
 interface currencies {
@@ -16,27 +17,71 @@ interface currencies {
 }
 
 interface CardInputDataProps {
-    state: any
-    dispatch: Function
-    type: string
-    handleChangeType
     currencies: Array<currencies>
-    onSubmit: FormEventHandler<HTMLFormElement>
-    handleChangeAmount
     expenseGain: Array<any>
+    createTrigger: boolean
+    setCreateTrigger: Function
 }
 
 const CardInputData = ({
-    state,
-    dispatch,
-    type,
-    handleChangeType,
     currencies,
-    onSubmit,
-    handleChangeAmount,
-    expenseGain
+    expenseGain,
+    createTrigger,
+    setCreateTrigger,
 }: CardInputDataProps) => {
+    const formReducer = (state, {type, payload}) => {
+        switch (type) {
+            case 'selectedDate':
+                return {...state, selectedDate: payload}
+            case 'category':
+                return {...state, category: payload}
+            case 'currency':
+                return {...state, currency: payload}
+            case 'amountNeg':
+                return {...state, amount: -payload}
+            case 'amountPos':
+                return {...state, amount: payload}
+            default:
+                throw new Error()
+        }
+    }
 
+    const [type, setType] = useState<string>('Expense')
+    const initialState = {
+        selectedDate: new Date(),
+        category: "",
+        currency: "€",
+        amount: "",
+      };
+    const [state, dispatch] = useReducer(formReducer, initialState);
+    const expenseData = {
+      date: state.selectedDate,
+      category: state.category,
+      amount: state.amount,
+      currency: state.currency
+    }
+      const token = window.localStorage.getItem('token')
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+
+    const handleChangeType = (event): void => {
+        setType(event.target.value);
+      };
+  
+    const handleChangeAmount= (event): void => {
+        if (type === 'Expense'){
+          dispatch({type: 'amountNeg', payload: event.target.value})
+        } else {
+          dispatch({type: 'amountPos', payload: event.target.value})
+        }
+        
+    }
+    const onSubmit = async (event): Promise<void> => {
+        event.preventDefault();
+        await createExpense(expenseData, config).then((result) => console.log(result))
+        setCreateTrigger(!createTrigger)
+    }
     return (
         <Card className="card input-data">
                     <CardContent>

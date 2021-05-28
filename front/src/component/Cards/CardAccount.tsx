@@ -16,6 +16,7 @@ const CardAccount = ({
     total,
     currency
 }: CardAccountProps) => {
+    console.log("account")
     const [value, setValue] = useState<number>(0);
     const [styleCard, setStyleCard] = useState<string>("")
 
