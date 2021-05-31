@@ -10,7 +10,7 @@ describe('FieldInput', () => {
                 label:"test",
                 type: "text",
                 placeholder: "test1",
-                handleChange: jest.fn()
+                handleChange: ()=>{}
             })
         expect(container).toBeDefined();
         expect(container.props.children[0].props.children).toBe("test")
@@ -24,7 +24,7 @@ describe('FieldInput', () => {
                 label="test"
                 type="text"
                 placeholder="test1"
-                handleChange={jest.fn()}
+                handleChange={()=>{}}
             />)
         const input = screen.getByLabelText('field-input')
         expect(container).toBeDefined();
