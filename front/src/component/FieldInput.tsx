@@ -19,6 +19,7 @@ const FieldInput = ({
             {label}
         </label>
         <input
+            aria-label="field-input"
             type={type}
             placeholder= {placeholder}
             onChange={handleChange}
