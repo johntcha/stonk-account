@@ -79,7 +79,7 @@ const CardInputData = ({
     }
     const onSubmit = async (event): Promise<void> => {
         event.preventDefault();
-        await createExpense(expenseData, config).then((result) => console.log(result))
+        await createExpense(expenseData, config)
         setCreateTrigger(!createTrigger)
     }
     return (

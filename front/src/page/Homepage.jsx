@@ -56,6 +56,19 @@ const Homepage = () => {
       calculateTotalAccount(result.data);
       })
     }, [createTrigger, deleteTrigger]);
+
+    // const remove = (list1, list2) => {
+    //   let count = 0;
+    //   for(let i=0; i < list1.length; i++){
+    //     if (list1.id === list2[list2.length -1].id){
+    //       count++
+    //       if (count > 1) {
+
+    //       }
+    //     }
+    //   }
+      
+    // }
     
     const updateChart = useCallback( async (expensesList) => {
       const chartData = expensesList.map((expense) => {
@@ -66,25 +79,12 @@ const Homepage = () => {
         };
         return container;
       });
-
       const chartExpenseData = await chartData.filter((neg) => neg.value > 0);
-      const chartExpenseDataPrevious = [...chartExpenseData.slice(0, -1)];
-      console.log(chartExpenseDataPrevious)
-      console.log(doughnut)
-      const doublonIndex = chartExpenseDataPrevious.findIndex((expense) => expense.id === chartExpenseData[chartExpenseData.length -1].id)
-      if (doublonIndex !== -1 && doughnut.length === 0) {
-        chartExpenseDataPrevious[doublonIndex].value += chartExpenseData[chartExpenseData.length -1].value
-        setDoughnut(chartExpenseDataPrevious);
-        console.log(chartExpenseDataPrevious)
-      }
-      else if(doublonIndex !== -1 && doughnut.length > 0) {
-        doughnut[doublonIndex].value += chartExpenseData[chartExpenseData.length -1].value
-        // setDoughnut(doughnut);
-        console.log(doughnut)
-      }
-      else {
-        setDoughnut(chartExpenseData);
-      }
+      const chartExpenseDataUniqueWithoutValues = Array.from(chartExpenseData.reduce(
+        (m, {id, value}) => m.set(id, (m.get(id) || 0) + value), new Map
+      ), ([id, value]) => ({id, value}));
+      const chartExpenseDataUnique = chartExpenseDataUniqueWithoutValues.map((exp) => Object.assign(exp, {label : exp.id} ))
+      setDoughnut(chartExpenseDataUnique)
     }, []);
 
     useEffect(()=>{
