@@ -9,13 +9,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import './login.css'
 
 const Login = () => {
-    const [token, setToken] = useState()
-    const [username, setUsername] = useState()
-    const [usernameTyped, setUsernameTyped] = useState()
-    const [passwordTyped, setPasswordTyped] = useState()
+    const [token, setToken] = useState<string>("")
+    const [username, setUsername] = useState<string>("")
+    const [usernameTyped, setUsernameTyped] = useState<string>("")
+    const [passwordTyped, setPasswordTyped] = useState<string>("")
     // const [emailTyped, setEmailTyped] = useState()
-    const [isCreated, setIsCreated] = useState(false)
-    const dateNow = new Date()
+    const [isCreated, setIsCreated] = useState<boolean>(false)
+    const dateNow: Date = new Date()
     
     const config = {
         headers: { Authorization: `Bearer ${token}` }
@@ -27,48 +27,47 @@ const Login = () => {
     }
     
     
-    const getUsername = (()=>{
+    const getUsername = ((): void => {
         if (token)
          displayUserLogged(config).then((result) => {
              setUsername(result.data.username)
-            //  console.log(result)
             })
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         getUsername()
         localStorageHandler()
     },[token, username])
 
 
-    const handleChangeUsername = (event) => {
+    const handleChangeUsername = (event): void => {
         setUsernameTyped(event.target.value);
     }
-    const handleChangePassword = (event) => {
+    const handleChangePassword = (event): void => {
         setPasswordTyped(event.target.value)
     }
-    // const handleChangeEmail = (event) => {
+    // const handleChangeEmail = (event): void => {
     //     setEmailTyped(event.target.value)
     // }
-    const handleSubmitSignIn = (event) => {
+    const handleSubmitSignIn = (event): void => {
         event.preventDefault();
         login(userCredentials).then((result) => setToken(result.data.access_token))
     }
-    const handleSubmitSignUp = (event) => {
+    const handleSubmitSignUp = (event): void => {
         event.preventDefault();
         createAccount(userCredentials).then((result) => {
             if (result.status === 201) setIsCreated(true)
         })
     }
 
-    const [showSignup, setShowSignup] = useState(false);
+    const [showSignup, setShowSignup] = useState<boolean>(false);
 
-	const handleSignup = () => {
+	const handleSignup = (): void => {
 		setShowSignup(!showSignup);
         setIsCreated(false)
 	}
 
-    const localStorageHandler = () => {
+    const localStorageHandler = (): void => {
         if (token){
             window.localStorage.setItem('token', token)
             window.localStorage.setItem('username', username)
