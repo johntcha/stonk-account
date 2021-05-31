@@ -12,7 +12,7 @@ interface CardAccountProps {
     currency: string
 }
 
-const CardAccount = ({
+const CardAccount = ({ 
     total,
     currency
 }: CardAccountProps) => {

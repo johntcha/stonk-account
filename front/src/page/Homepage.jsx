@@ -22,6 +22,7 @@ const Homepage = () => {
       headers: { Authorization: `Bearer ${token}` }
     };
     
+    const totalCurrency = expensesList[0]?.currency || '€'
     const currencies = [
         {
           value: 'USD',
@@ -113,7 +114,7 @@ const Homepage = () => {
                 />
                 <CardAccount
                 total={total}
-                // currency={expenseData.currency}
+                currency={totalCurrency}
                 />
                 <CardInputData
                 currencies={currencies}
