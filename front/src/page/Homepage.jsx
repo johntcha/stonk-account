@@ -57,19 +57,6 @@ const Homepage = () => {
       })
     }, [createTrigger, deleteTrigger]);
 
-    // const remove = (list1, list2) => {
-    //   let count = 0;
-    //   for(let i=0; i < list1.length; i++){
-    //     if (list1.id === list2[list2.length -1].id){
-    //       count++
-    //       if (count > 1) {
-
-    //       }
-    //     }
-    //   }
-      
-    // }
-    
     const updateChart = useCallback( async (expensesList) => {
       const chartData = expensesList.map((expense) => {
         const container = {
@@ -81,8 +68,8 @@ const Homepage = () => {
       });
       const chartExpenseData = await chartData.filter((neg) => neg.value > 0);
       const chartExpenseDataUniqueWithoutValues = Array.from(chartExpenseData.reduce(
-        (m, {id, value}) => m.set(id, (m.get(id) || 0) + value), new Map
-      ), ([id, value]) => ({id, value}));
+        (m, {id, value}) => m.set(id, (m.get(id) || 0) + value), new Map), ([id, value]) => ({id, value})
+      );
       const chartExpenseDataUnique = chartExpenseDataUniqueWithoutValues.map((exp) => Object.assign(exp, {label : exp.id} ))
       setDoughnut(chartExpenseDataUnique)
     }, []);
