@@ -1,9 +1,11 @@
 import React from 'react'
 import FieldInput from './FieldInput'
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 describe('FieldInput', () => {
+    afterEach(cleanup)
+
     it('should return the correct string props', () => {
         const container =
             FieldInput({

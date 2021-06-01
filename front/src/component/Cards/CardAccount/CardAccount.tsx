@@ -40,11 +40,11 @@ const CardAccount = ({
             </button>
             </Tabs>
             <CardContent>
-                <Typography>
+                <div>
                     <h2>Account total amount</h2>
                     {total}
                     {currency}
-                </Typography>
+                </div>
             </CardContent>
         </Card>
     )

@@ -1,9 +1,11 @@
 import React from 'react'
 import Header from './Header'
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 describe('FieldInput', () => {
+    afterEach(cleanup)
+
     it('should change the text content', () => {
         const mockCapitalize = jest.fn()
         render(<Header username="john" logout={()=>{}} capitalizeFirstLetter={mockCapitalize}/>)

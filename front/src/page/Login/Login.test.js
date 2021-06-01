@@ -1,9 +1,11 @@
 import React from 'react'
 import Login from './Login'
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, within, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 describe('Login', () => {
+    afterEach(cleanup)
+
     it('should show sign up popup onclick', () => {
         render(<Login/>)
         const signup = screen.getByLabelText('open-signup')
