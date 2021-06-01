@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import  { Redirect } from 'react-router-dom'
+import  { Redirect, useHistory } from 'react-router-dom'
 import Header from '../component/Header';
 import CardPieChart from '../component/Cards/CardPieChart';
 import CardAccount from '../component/Cards/CardAccount';
@@ -10,6 +10,7 @@ import './homepage.css'
 
 const Homepage = () => {
     const username = window.localStorage.getItem('username')
+    const history = useHistory();
     const [expensesList, setExpensesList] = useState([])
     const [total, setTotal] = useState(0)
     const [deleteTrigger, setDeleteTrigger] = useState(true)
@@ -49,6 +50,19 @@ const Homepage = () => {
         label: 'Gain',
       },
   ];
+
+  
+  const LogOut = () => {
+      if (window.localStorage.getItem('token')){
+          window.localStorage.removeItem('token')
+          window.localStorage.removeItem('username')
+          let path = `/login`; 
+          history.push(path);
+      }
+  }
+  const capitalizeFirstLetter = (string) => {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
     useEffect(() => {
       getAllUserExpenses(config).then((result) => {
@@ -107,6 +121,8 @@ const Homepage = () => {
             <>
                 <Header 
                 username={username}
+                logout={LogOut}
+                capitalizeFirstLetter={capitalizeFirstLetter}
                 />
                 <div className="card-wrapper">
                 <CardPieChart
