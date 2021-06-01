@@ -6,6 +6,9 @@ html {
 .login-form, .signup-form {
     display: inline-grid;
     text-align: center;
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 10px;
 }
 
 .login-content, .signup-content {
@@ -47,8 +50,7 @@ html {
 
 .signup-form{
     border: solid deepskyblue;
-    border-radius: 10%;
-    background: white;
+    background: #fff;
     padding: 50px;
     animation: popup .6s ease forwards;
     transform: scale(0);

@@ -78,7 +78,7 @@ const Login = () => {
     return (
         <>
             <div className="login-content">
-                <form className="login-form" onSubmit={handleSubmitSignIn}>
+                <form className="login-form" onSubmit={handleSubmitSignIn} aria-label="login-form">
                     <FieldInput
                     label="Username :" 
                     type="text"
@@ -95,7 +95,7 @@ const Login = () => {
                         Sign in
                     </Button>
                         No account yet ?
-                    <Button variant="contained" color="primary" onClick={handleSignup}>
+                    <Button variant="contained" color="primary" onClick={handleSignup} aria-label="open-signup">
                         Sign up
                     </Button>
                 </form>
@@ -112,6 +112,7 @@ const Login = () => {
                             type="text"
                             placeholder="Enter your username"
                             handleChange={handleChangeUsername}
+
                             />
                             <FieldInput
                             label="Password :" 

@@ -26,7 +26,7 @@ const Header = (props: HeaderProps) => {
 
     return (
         <div className="header">
-            <h1>Welcome home {props.capitalizeFirstLetter(props.username)}</h1>
+            Welcome home {props.capitalizeFirstLetter(props.username)}
             <Button
                 variant="contained"
                 color="secondary"
@@ -40,7 +40,7 @@ const Header = (props: HeaderProps) => {
             <Button
                 variant="contained"
                 color="secondary"
-                className="logout-button"
+                className="logout-button-mobile"
                 startIcon={<ExitToAppIcon />}
                 onClick={props.logout}
                 aria-label="logout-button-mobile"
