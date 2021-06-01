@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { login, displayUserLogged, createAccount } from '../request/RequestService'
+import { login, displayUserLogged, createAccount } from '../../request/RequestService'
 import  { Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
-import FieldInput from '../component/FieldInput'
+import FieldInput from '../../component/FieldInput/FieldInput'
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 

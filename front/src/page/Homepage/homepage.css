@@ -3,7 +3,7 @@
     display: grid;
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
-    background-image:url(../media/account.jpg);
+    background-image:url(../../media/account.jpg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import  { Redirect, useHistory } from 'react-router-dom'
-import Header from '../component/Header';
-import CardPieChart from '../component/Cards/CardPieChart';
-import CardAccount from '../component/Cards/CardAccount';
-import CardInputData from '../component/Cards/CardInputData';
-import CardTable from '../component/Cards/CardTable';
-import { deleteExpense, getAllUserExpenses, activateIsDebited } from '../request/RequestService';
+import Header from '../../component/Header/Header';
+import CardPieChart from '../../component/Cards/CardPieChart/CardPieChart';
+import CardAccount from '../../component/Cards/CardAccount/CardAccount';
+import CardInputData from '../../component/Cards/CardInputData/CardInputData';
+import CardTable from '../../component/Cards/CardTable/CardTable';
+import { deleteExpense, getAllUserExpenses, activateIsDebited } from '../../request/RequestService';
 import './homepage.css'
 
 const Homepage = () => {

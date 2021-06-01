@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Tabs, { TabsProps } from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddIcon from '@material-ui/icons/Add';
-import './card.css'
+import '../card.css'
 
 interface CardAccountProps {
     total: number

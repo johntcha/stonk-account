@@ -8,8 +8,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { createExpense } from '../../request/RequestService';
-import './card.css'
+import { createExpense } from '../../../request/RequestService';
+import '../card.css'
 
 interface currencies {
     label: string

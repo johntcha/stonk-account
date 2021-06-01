@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { ResponsivePie } from '@nivo/pie'
 import AddIcon from '@material-ui/icons/Add';
-import './card.css'
+import '../card.css'
 
 interface Doughnut {
     id: string
