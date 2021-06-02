@@ -9,7 +9,7 @@ describe('FieldInput', () => {
     it('should change the text content', () => {
         const mockCapitalize = jest.fn()
         render(<Header username="john" logout={()=>{}} capitalizeFirstLetter={mockCapitalize}/>)
-        expect(mockCapitalize.mock.calls.length).toBe(1)
+        expect(mockCapitalize).toHaveBeenCalledTimes(1)
     })
 
     it('should trigger the desktop log out button', () => {
@@ -17,7 +17,7 @@ describe('FieldInput', () => {
         render(<Header username="john" logout={mockLogOut} capitalizeFirstLetter={()=>{}} />)
         const logout = screen.getByLabelText('logout-button')
         userEvent.click(logout)
-        expect(mockLogOut.mock.calls.length).toBe(1)
+        expect(mockLogOut).toHaveBeenCalledTimes(1)
     })
 
     it('should trigger the mobile log out button', () => {
@@ -25,6 +25,6 @@ describe('FieldInput', () => {
         render(<Header username="john" logout={mockLogOutMobile} capitalizeFirstLetter={()=>{}} />)
         const logout = screen.getByLabelText('logout-button-mobile')
         userEvent.click(logout)
-        expect(mockLogOutMobile.mock.calls.length).toBe(1)
+        expect(mockLogOutMobile).toHaveBeenCalledTimes(1)
     })
 })

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import  { useHistory } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -10,7 +10,7 @@ interface HeaderProps {
     capitalizeFirstLetter: Function
 }
 
-const Header = (props: HeaderProps) => {
+const Header: FC<HeaderProps> = (props: HeaderProps) => {
     // const history = useHistory();
     // const LogOut = (): void => {
     //     if (window.localStorage.getItem('token')){

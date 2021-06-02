@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react'
+import React, { ChangeEventHandler, FC } from 'react'
 
 interface FieldInputProps {
     label: string
@@ -7,7 +7,7 @@ interface FieldInputProps {
     handleChange: ChangeEventHandler<HTMLInputElement>
 }
 
-const FieldInput = ({
+const FieldInput: FC<FieldInputProps> = ({
     label,
     type,
     placeholder,

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Tabs from '@material-ui/core/Tabs';
@@ -17,7 +17,7 @@ interface CardPiedChartProps {
     doughnut: Array<Doughnut>
 }
 
-const CardPieChart = ({
+const CardPieChart: FC<CardPiedChartProps> = ({
     doughnut 
 }: CardPiedChartProps) => {
     const [value, setValue] = useState<number>(0);

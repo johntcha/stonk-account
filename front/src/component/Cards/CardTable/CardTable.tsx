@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import moment from 'moment'
@@ -24,7 +24,7 @@ interface CardTableProps {
     onClickActivate: Function
 }
 
-const CardTable = ({
+const CardTable: FC<CardTableProps> = ({
     expensesList,
     onClickDelete,
     onClickActivate,

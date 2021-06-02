@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { FC, useReducer, useState } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -23,7 +23,7 @@ interface CardInputDataProps {
     setCreateTrigger: Function
 }
 
-const CardInputData = ({
+const CardInputData: FC<CardInputDataProps> = ({
     currencies,
     expenseGain,
     createTrigger,

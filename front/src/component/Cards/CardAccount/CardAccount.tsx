@@ -1,7 +1,6 @@
-import React, { useState, ChangeEvent, useEffect } from 'react'
+import React, { useState, ChangeEvent, useEffect, FC } from 'react'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import Tabs, { TabsProps } from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,7 +11,7 @@ interface CardAccountProps {
     currency: string
 }
 
-const CardAccount = ({ 
+const CardAccount: FC<CardAccountProps> = ({ 
     total,
     currency
 }: CardAccountProps) => {
