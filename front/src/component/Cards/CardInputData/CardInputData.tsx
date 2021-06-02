@@ -94,6 +94,7 @@ const CardInputData: FC<CardInputDataProps> = ({
                             margin="normal"
                             id="date-picker-inline"
                             label="Date picker inline"
+                            aria-label="date-picker"
                             value={state.selectedDate}
                             onChange={(e) => dispatch({type: 'selectedDate', payload: e})}
                             KeyboardButtonProps={{
@@ -107,6 +108,7 @@ const CardInputData: FC<CardInputDataProps> = ({
                             id="demo-simple-select"
                             value={type}
                             onChange={handleChangeType}
+                            aria-label="type"
                             >
                             {expenseGain.map((option) => (
                                 <MenuItem key={option.label} value={option.label}>
@@ -117,11 +119,13 @@ const CardInputData: FC<CardInputDataProps> = ({
                             <TextField 
                             id="standard-basic" 
                             label="Category"
+                            aria-label="category"
                             onChange={(e) => dispatch({type: 'category', payload: e.target.value})} />
                             <TextField
                             id="standard-select-currency"
                             select
                             label="Select"
+                            aria-label="currency-picker"
                             value={state.currency}
                             onChange={(e) => dispatch({type: 'currency', payload: e.target.value})}
                             helperText="Please select your currency"
@@ -136,6 +140,7 @@ const CardInputData: FC<CardInputDataProps> = ({
                             <TextField
                             id="standard-basic" 
                             label="Amount" 
+                            aria-label="amount"
                             onChange={handleChangeAmount}
                             />
                             <Button 

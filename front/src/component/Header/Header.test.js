@@ -3,7 +3,11 @@ import Header from './Header'
 import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-describe('FieldInput', () => {
+describe('Header', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+      });
+      
     afterEach(cleanup)
 
     it('should change the text content', () => {
