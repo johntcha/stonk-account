@@ -1,3 +1,4 @@
+import { Account } from 'src/account/account.entity';
 import { Users } from 'src/users/users.entity';
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
 
@@ -20,6 +21,9 @@ export class Expense extends BaseEntity {
 
     @ManyToOne(() => Users, user => user.expenses)
     users: Users
+
+    @ManyToOne(() => Account, account => account.expenses)
+    account: Account
 
     @Column('bool')
     isDebited: boolean

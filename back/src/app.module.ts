@@ -8,6 +8,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ExpenseController } from './expense/expense.controller';
 import { ExpenseModule } from './expense/expense.module';
 import { ExpenseService } from './expense/expense.service';
+import { AccountModule } from './account/account.module';
+import { CoModule } from './co/co.module';
+import { SModule } from './s/s.module';
 
 
 
@@ -16,7 +19,10 @@ import { ExpenseService } from './expense/expense.service';
     AuthModule, 
     UsersModule,
     TypeOrmModule.forRoot(typeOrmConfig),
-    ExpenseModule
+    ExpenseModule,
+    AccountModule,
+    CoModule,
+    SModule
   ],
   controllers: [AppController],
   providers: [AppService],
