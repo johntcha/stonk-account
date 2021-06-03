@@ -55,9 +55,14 @@ const Login = () => {
     }
     const handleSubmitSignUp = (event): void => {
         event.preventDefault();
-        createAccount(userCredentials).then((result) => {
-            if (result.status === 201) setIsCreated(true)
-        })
+        try{
+            createAccount(userCredentials)
+            setIsCreated(true)
+        }
+        catch(e){
+            console.log(e)
+        }
+        
     }
 
     const [showSignup, setShowSignup] = useState<boolean>(false);
