@@ -42,6 +42,7 @@ export class ExpenseService {
         const expenses = await getRepository(Expense)
         .createQueryBuilder("expense")
         .where("expense.usersUsername = :usersUsername", { usersUsername: users.username })
+        .orderBy("expense.id")
         .getMany();
     
         if (!expenses) {
