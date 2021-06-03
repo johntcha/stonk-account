@@ -1,4 +1,21 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Users } from 'src/users/users.entity';
+import { Account } from './account.entity';
+import { AccountService } from './account.service';
+import { AccountDto } from './dto/account.dto';
 
 @Controller('account')
-export class AccountController {}
+@UseGuards(AuthGuard('jwt'))
+export class AccountController {
+    constructor(private accountService: AccountService){}
+
+    @Post()
+    @UsePipes(ValidationPipe)
+    async createAccount(
+        accountDto: AccountDto,
+        users: Users
+        ): Promise<Account> {
+        return await this.accountService.createAccount(accountDto, users)
+    }
+}
