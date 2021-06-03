@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 
-describe('login', () => {
+describe('Header', () => {
 	//We only log in once before running all the test
 	before(() => {
 		cy.intercept('GET', `http://localhost:3002/expense`).as('login');
