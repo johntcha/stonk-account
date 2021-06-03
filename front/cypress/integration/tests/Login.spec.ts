@@ -1,3 +1,5 @@
+/// <reference types="cypress"/>
+
 describe('login', () => {
 	it('should redirect to /login', () => {
 		cy.visit('/');
