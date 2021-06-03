@@ -10,7 +10,7 @@ describe('login', () => {
         cy.url().should('include', '/login');
     })
     it('should login', () => {
-        cy.intercept('GET', 'http://localhost:3002/expense').as('login');
+        cy.intercept('GET', `http://localhost:3002/expense`).as('login');
         cy.visit('/login');
         cy.get('input').first().type('john')
         cy.get('form>input').eq(1).type('tcha')
