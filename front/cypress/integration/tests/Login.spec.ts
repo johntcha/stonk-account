@@ -30,13 +30,16 @@ describe('login', () => {
         cy.get('.signup-form').should('not.exist');
 	});
 
-    // it('should create an user and log in', () => {
-    //     cy.visit('/login');
-	// 	cy.contains('Sign up').click()
-    //     cy.get('.signup-form').should('exist');
-    //     cy.get('.signup-form').should('be.visible');
-    //     cy.get('form>input').first().type('monsieur')
-    //     cy.get('form>input').eq(1).type('test')
-    //     cy.contains('Create account').click();
-	// });
+    it('should create an user', () => {
+        cy.intercept('POST', `http://localhost:3002/users`).as('createUser');
+        cy.visit('/login');
+		cy.contains('Sign up').click()
+        cy.get('.signup-form').should('exist');
+        cy.get('.signup-form').should('be.visible');
+        cy.get('.signup-form>input').eq(0).type('monsieur')
+        cy.get('.signup-form>input').eq(1).type('test')
+        cy.contains('Create account').click()
+        cy.wait('@createUser');
+        cy.get('.signup-form>div').contains('Your account has been created !')
+	});
 })
