@@ -1,5 +1,6 @@
-import { Controller, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/users/get-user.decorator';
 import { Users } from 'src/users/users.entity';
 import { Account } from './account.entity';
 import { AccountService } from './account.service';
@@ -13,8 +14,8 @@ export class AccountController {
     @Post()
     @UsePipes(ValidationPipe)
     async createAccount(
-        accountDto: AccountDto,
-        users: Users
+        @Body() accountDto: AccountDto,
+        @GetUser() users: Users
         ): Promise<Account> {
         return await this.accountService.createAccount(accountDto, users)
     }
