@@ -45,4 +45,22 @@ describe('CardInputData', () => {
         cy.get('[aria-labelledby="standard-select-currency-label standard-select-currency"]').should('contain', '$')
 	})
 
+    it("should displayed the added expense/gain to the Account history", () => {
+        const taille = document.getElementsByClassName("expenses-list").length;
+        console.log(taille)
+        cy.intercept('GET', `http://localhost:3002/expense`).as('getExpense');
+        cy.get('[aria-label="category"]>div>input').should('have.value', '')
+        cy.get('[aria-label="category"]>div>input').type('testing')
+        cy.get('[aria-label="category"]>div>input').should('have.value', 'testing')
+        cy.get('[aria-label="amount"]>div>input').should('have.value', '')
+        cy.get('[aria-label="amount"]>div>input').type('25.25')
+        cy.get('[aria-label="amount"]>div>input').should('have.value', '25.25')
+        cy.contains('Add').click()
+        cy.wait('@getExpense');
+        cy.get('.expenses-list>tbody>tr').last().get('tr').eq(2).should('contain', 'testing')
+        cy.get('.expenses-list>tbody>tr').last().get('tr').eq(3).should('contain', '-25.25')
+        cy.get('.expenses-list>tbody>tr').last().get('tr').eq(4).should('contain', '€')
+        
+	})
+
 })
