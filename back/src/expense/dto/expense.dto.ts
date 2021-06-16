@@ -4,5 +4,6 @@ export class ExpenseDto {
     currency: string;
     date: Date;
     usersUsername: number;
+    accountId: number;
     isDebited: boolean;
 }

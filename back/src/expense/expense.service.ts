@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Account } from 'src/account/account.entity';
 import { Users } from 'src/users/users.entity';
 import { getRepository } from 'typeorm';
 import { ExpenseDto } from './dto/expense.dto';
@@ -15,9 +16,10 @@ export class ExpenseService {
     
     async createExpense(
         expenseDto: ExpenseDto,
-        users: Users
+        users: Users,
+        account: Account
         ): Promise<Expense> {
-        return await this.expenseRepository.createExpense(expenseDto, users)
+        return await this.expenseRepository.createExpense(expenseDto, users, account)
     }
 
     async deleteExpense(
