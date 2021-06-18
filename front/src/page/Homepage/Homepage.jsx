@@ -83,7 +83,7 @@ const Homepage = () => {
       });
       const chartExpenseData = await chartData.filter((neg) => neg.value > 0);
       const chartExpenseDataUniqueWithoutValues = Array.from(chartExpenseData.reduce(
-        (m, {id, value}) => m.set(id, (m.get(id) || 0) + value), new Map), ([id, value]) => ({id, value})
+        (m, {id, value}) => m.set(id, (m.get(id) || 0) + value), new Map()), ([id, value]) => ({id, value})
       );
       const chartExpenseDataUnique = chartExpenseDataUniqueWithoutValues.map((exp) => Object.assign(exp, {label : exp.id} ))
       setDoughnut(chartExpenseDataUnique)
